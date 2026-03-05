@@ -1,0 +1,62 @@
+/* ------------------- SM --------------------- */
+
+.container-sm {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container-sm {
+    max-width: 460px;
+  }
+}
+@media (min-width: 768px) {
+  .container-sm {
+    max-width: 600px;
+  }
+}
+@media (min-width: 1024px) {
+  .container-sm {
+    max-width: 800px;
+  }
+}
+@media (min-width: 1280px) {
+  .container-sm {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1536px) {
+  .container-sm {
+    max-width: 1080px;
+  }
+}
+
+/* ------------------- MD --------------------- */
+.container-md {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container-md {
+    max-width: 620px;
+  }
+}
+@media (min-width: 768px) {
+  .container-md {
+    max-width: 760px;
+  }
+}
+@media (min-width: 1024px) {
+  .container-md {
+    max-width: 1020px;
+  }
+}
+@media (min-width: 1280px) {
+  .container-md {
+    max-width: 1250px;
+  }
+}
+@media (min-width: 1536px) {
+  .container-md {
+    max-width: 1450px;
+  }
+}
