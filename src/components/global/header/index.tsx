@@ -34,7 +34,6 @@ const Header = async () => {
   const data = await fetchData();
   const countries = data.countries ?? [];
   const institutions = data.institutions ?? [];
-  console.log(data);
   return (
     <header className="sticky top-0 w-full z-[9001] bg-bg/50 backdrop-blur-xl">
       <ContainerLayout className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 items-center py-2">
