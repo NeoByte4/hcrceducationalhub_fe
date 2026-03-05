@@ -1,11 +1,14 @@
 import { IAsset } from "./generic";
 
+interface ICountryImage {
+  directus_files_id: IAsset;
+}
 export interface IDestination_MINIMAL {
   slug: string;
   name: string;
   subtitle: string;
   overview: string;
-  images: IAsset;
+  images: ICountryImage[];
 }
 
 export interface ICountry {
