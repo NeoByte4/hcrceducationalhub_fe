@@ -1,6 +1,6 @@
 import React from "react";
-import { axiosDataInstance } from "../axios/axios";
-import HeroSection from "../components/sections/tours/hero-section";
+import { axiosDataInstance } from "../../axios/axios";
+import HeroSection from "../../components/sections/tours/hero-section";
 
 const HERO_QUERY = `
 query {
