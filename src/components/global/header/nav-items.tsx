@@ -102,7 +102,6 @@ const NavItems = ({ countries, institutions, onNavigate }: Props) => {
                           navItem.subPages!,
                         )}
                       </div>
-                      cccccccc
                     </Popover.Content>
                   </Popover.Portal>
                 </Popover.Root>
