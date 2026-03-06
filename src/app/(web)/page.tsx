@@ -8,6 +8,7 @@ import TopDestinationSection from "@/src/components/sections/top-destination-sec
 import TopUniversitySection from "@/src/components/sections/university/top-university-section";
 import ProgramListSection from "@/src/components/program/program-list-section";
 import { routes } from "@/lib/routes";
+import AboutSection from "@/src/components/sections/about/about-section";
 
 const HERO_QUERY = `
 query {
@@ -159,6 +160,23 @@ const Homepage = async () => {
           data={admissionOpenPrograms}
         />
       )}
+      <AboutSection
+        subtitle="Why Prestige?"
+        name="About Us"
+        image="/about/about-1.webp"
+        overview={
+          <>
+            We are an Australian-owned travel wholesaler with over 20 years of
+            experience in Mediterranean travel. We create tailor-made packages,
+            from private tours and honeymoons to family holidays, leisure
+            getaways, and corporate trips.
+            <br />
+            <br />
+            Our services cover everything, accommodation, transfers, ferry and
+            train tickets, guided tours, and unique local experiences.
+          </>
+        }
+      />
     </>
   );
 };

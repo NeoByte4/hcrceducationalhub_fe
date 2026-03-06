@@ -5,7 +5,7 @@ import Link from "next/link";
 interface Props {
   name: string;
   subtitle?: string;
-  overview?: string;
+  overview?: string | React.ReactNode;
   ctaTitle?: string;
   ctaLink?: string;
   isCenter?: boolean;
