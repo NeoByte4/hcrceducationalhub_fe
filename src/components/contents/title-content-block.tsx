@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import HeadingText from "@/components/ui/heading-text";
+import Link from "next/link";
 
 interface Props {
   name: string;
@@ -9,6 +9,7 @@ interface Props {
   ctaTitle?: string;
   ctaLink?: string;
   isCenter?: boolean;
+  titleClass?: string;
 }
 
 function TitleContentBlock({
@@ -16,15 +17,12 @@ function TitleContentBlock({
   overview,
   ctaTitle,
   ctaLink,
-
   isCenter = false,
+  titleClass,
 }: Props) {
   return (
     <div className={`${isCenter ? "text-center max-w-3xl mx-auto" : ""}`}>
-      <HeadingText
-        level={2}
-        className={`mb-2 md:mb-4 ${isCenter ? "text-3xl md:text-4xl" : "text-2xl md:text-3xl"}`}
-      >
+      <HeadingText level={2} className={`mb-2 md:mb-4 ${titleClass}`}>
         {name}
       </HeadingText>
 

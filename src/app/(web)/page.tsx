@@ -6,6 +6,8 @@ import SpacingLayout from "@/src/components/layouts/spacing-layout";
 import { shouldRenderSection } from "@/src/utils/should-render-section";
 import TopDestinationSection from "@/src/components/sections/top-destination-section";
 import TopUniversitySection from "@/src/components/sections/university/top-university-section";
+import ProgramListSection from "@/src/components/program/program-list-section";
+import { routes } from "@/lib/routes";
 
 const HERO_QUERY = `
 query {
@@ -33,6 +35,38 @@ query {
     name
     slug
   }
+
+  admissionOpenPrograms: program(
+   
+    limit: 6
+  ) {
+    name
+    slug
+    subtitle
+    overview
+    duration
+    program_level
+    credits_hours
+    key_highlights
+    images {
+      directus_files_id {
+        id
+        filename_download
+        description
+      }
+    }
+    institution {
+      name
+      slug
+      logo {
+        id
+      }
+      global_ranking
+      location
+    }
+  }
+
+
   topInstitutions: institutions(
     sort: ["global_ranking"],     
     limit: 5,
@@ -72,6 +106,7 @@ const Homepage = async () => {
     program = [],
     topCountries = countries,
     topInstitutions = [],
+    admissionOpenPrograms = [],
   } = data ?? {};
 
   const heroPage = hero_page[0] ?? {};
@@ -111,6 +146,17 @@ const Homepage = async () => {
           name="Top Universities"
           overview="Discover the world's top universities and their unique offerings. Explore leading institutions for international education and find your perfect academic destination."
           data={topInstitutions}
+        />
+      )}
+
+      {shouldRenderSection(admissionOpenPrograms) && (
+        <ProgramListSection
+          subtitle="Curated & Customizable"
+          name="Our Recommended Tours"
+          description="These featured tours are selected from our trusted partners' collections, chosen because they capture the essence of Mediterranean travel  collections, chosen because they capture the essence of Mediterranean travel."
+          morePlansUrl={routes.program}
+          morePlansLabel="See More  Programs"
+          data={admissionOpenPrograms}
         />
       )}
     </>

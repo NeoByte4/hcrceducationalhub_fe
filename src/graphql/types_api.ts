@@ -57,10 +57,18 @@ export interface IInstitution {
 export interface IProgram {
   id: string;
   name: string;
+  discount?: number;
+  rating?: number;
   slug: string;
   subtitle?: string;
   overview?: string;
-  images?: IAsset;
+  images?: Array<{
+    directus_files_id: {
+      id: string;
+      filename_download?: string;
+      description?: string;
+    };
+  }>;
   video?: IAsset;
   credits_hours?: string;
   duration?: string;
