@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { IAsset } from "@/src/graphql/generic";
 import { getAssetUrl } from "@/src/utils/getAssetUrl";
-import ContainerLayout from "../../layouts/container-layout";
+import ContainerLayout from "../layouts/container-layout";
 import { Button } from "@/components/ui/button";
 
 interface SlideshowItem {

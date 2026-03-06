@@ -1,10 +1,11 @@
 import React from "react";
 import { axiosDataInstance } from "../../axios/axios";
-import HeroSection from "../../components/sections/tours/hero-section";
+import HeroSection from "../../components/sections/hero-section";
 import GobalDestinationSearch from "@/src/components/forms/global-destination-search";
 import SpacingLayout from "@/src/components/layouts/spacing-layout";
 import { shouldRenderSection } from "@/src/utils/should-render-section";
 import TopDestinationSection from "@/src/components/sections/top-destination-section";
+import TopUniversitySection from "@/src/components/sections/university/top-university-section";
 
 const HERO_QUERY = `
 query {
@@ -32,13 +33,32 @@ query {
     name
     slug
   }
-}`;
+  topInstitutions: institutions(
+    sort: ["global_ranking"],     
+    limit: 5,
+    filter: { global_ranking: { _nnull: true } }   
+  ) {
+    name
+    slug
+    subtitle
+    logo { id }
+    global_ranking
+    location
+    images {
+      directus_files_id {
+        id
+        filename_download
+        description
+      }
+    }
+  }
+}
+`;
 
 const fetchHeroData = async () => {
   const response = await axiosDataInstance.post("/graphql", {
     query: HERO_QUERY,
   });
-
   return response.data.data;
 };
 
@@ -51,6 +71,7 @@ const Homepage = async () => {
     institutions = [],
     program = [],
     topCountries = countries,
+    topInstitutions = [],
   } = data ?? {};
 
   const heroPage = hero_page[0] ?? {};
@@ -84,6 +105,14 @@ const Homepage = async () => {
           />
         )}
       </SpacingLayout>
+      {shouldRenderSection(topInstitutions) && (
+        <TopUniversitySection
+          subtitle="Explore the world's top universities."
+          name="Top Universities"
+          overview="Discover the world's top universities and their unique offerings. Explore leading institutions for international education and find your perfect academic destination."
+          data={topInstitutions}
+        />
+      )}
     </>
   );
 };

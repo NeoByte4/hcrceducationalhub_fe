@@ -3,6 +3,15 @@ import { IAsset } from "./generic";
 interface ICountryImage {
   directus_files_id: IAsset;
 }
+interface DirectusFile {
+  id: string;
+  filename_download?: string;
+  description?: string;
+}
+interface InstitutionImage {
+  directus_files_id: DirectusFile;
+}
+
 export interface IDestination_MINIMAL {
   slug: string;
   name: string;
@@ -38,10 +47,11 @@ export interface IInstitution {
   global_ranking?: number;
   national_ranking?: number;
   established_date?: string;
-  images?: IAsset;
+  images?: InstitutionImage[];
   video?: IAsset;
   logo?: IAsset;
-  courses?: ICountry[];
+  country?: ICountry[];
+  programs?: IProgram[];
 }
 
 export interface IProgram {
