@@ -1,11 +1,15 @@
-// utils/getAssetUrl.ts
-import { IAsset } from "../graphql/generic";
+import { IAsset } from "@/src/graphql/generic";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_DATA_URL;
+const BASE_URL =
+  process.env.NEXT_PUBLIC_DIRECTUS_URL ?? "http://localhost:8055";
 
-export function getAssetUrl(data: IAsset) {
+const FALLBACK = { src: "/images/placeholder.jpg", alt: "Image unavailable" };
+
+export function getAssetUrl(data: IAsset | null | undefined) {
+  if (!data || !data.id) return FALLBACK;
+
   return {
-    src: data.id ? `${BASE_URL}/assets/${data.id}` : "/placeholder.jpg",
-    alt: data.description ?? `Travel photography`,
+    src: `${BASE_URL}/assets/${data.id}`,
+    alt: data.description ?? "Travel photography",
   };
 }

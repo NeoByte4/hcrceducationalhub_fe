@@ -153,7 +153,7 @@ const Homepage = async () => {
       {shouldRenderSection(admissionOpenPrograms) && (
         <ProgramListSection
           subtitle="Curated & Customizable"
-          name="Our Recommended Tours"
+          name="Our Recommended  Programs"
           description="These featured tours are selected from our trusted partners' collections, chosen because they capture the essence of Mediterranean travel  collections, chosen because they capture the essence of Mediterranean travel."
           morePlansUrl={routes.program}
           morePlansLabel="See More  Programs"
