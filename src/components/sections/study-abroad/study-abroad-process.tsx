@@ -37,8 +37,8 @@ const StudyAbroadProcess: React.FC<StudyAbroadProcessProps> = ({
   data,
 }) => {
   return (
-    <ContainerLayout className="my-16 sm:my-20">
-      <div className="flex flex-col items-center">
+    <ContainerLayout>
+      <div className="flex flex-col my-25 items-center">
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight leading-tight">
             {title}

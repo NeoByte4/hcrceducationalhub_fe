@@ -76,3 +76,28 @@ export interface IProgram {
   key_highlights?: string;
   institution?: IInstitution;
 }
+
+export interface IBlog_MINIMAL {
+  title: string;
+  subtitle?: string;
+  slug: string;
+  images: Array<{
+    directus_files_id: {
+      id: string;
+      filename_download?: string;
+      description?: string;
+    };
+  }>;
+  video?: IAsset;
+  date?: string;
+  readTime?: string;
+  author?: string;
+  date_created?: string;
+  blog_content: string;
+  overview: string;
+}
+
+export interface IFaq {
+  question: string;
+  answer: string;
+}

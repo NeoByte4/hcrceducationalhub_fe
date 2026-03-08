@@ -11,6 +11,7 @@ import { routes } from "@/lib/routes";
 import AboutSection from "@/src/components/sections/about/about-section";
 import StudyAbroadProcess from "@/src/components/sections/study-abroad/study-abroad-process";
 import { studyAbroadProcess } from "@/src/data/study-abroad-process";
+import LatestArticleSection from "@/src/components/sections/article/latest-article-section";
 
 const HERO_QUERY = `
 query {
@@ -40,7 +41,6 @@ query {
   }
 
   admissionOpenPrograms: program(
-   
     limit: 6
   ) {
     name
@@ -88,6 +88,21 @@ query {
       }
     }
   }
+
+    blog {
+    title
+    slug
+    subtitle
+    images {
+      directus_files_id {
+        id
+        filename_download
+        description
+      }
+    }
+
+}
+  
 }
 `;
 
@@ -109,6 +124,7 @@ const Homepage = async () => {
     topCountries = countries,
     topInstitutions = [],
     admissionOpenPrograms = [],
+    blog: blogs = [],
   } = data ?? {};
 
   const heroPage = hero_page[0] ?? {};
@@ -178,10 +194,19 @@ const Homepage = async () => {
           </>
         }
       />
+
       <StudyAbroadProcess
         title="HCRC Guide to Studying Abroad"
         data={studyAbroadProcess.data}
       />
+      {shouldRenderSection(blogs) && (
+        <LatestArticleSection
+          subtitle="Latest Blog"
+          title="Our Latest Blogs"
+          description="Check out our latest blogs on travel and adventure."
+          data={blogs}
+        />
+      )}
     </>
   );
 };
