@@ -9,6 +9,8 @@ import TopUniversitySection from "@/src/components/sections/university/top-unive
 import ProgramListSection from "@/src/components/program/program-list-section";
 import { routes } from "@/lib/routes";
 import AboutSection from "@/src/components/sections/about/about-section";
+import StudyAbroadProcess from "@/src/components/sections/study-abroad/study-abroad-process";
+import { studyAbroadProcess } from "@/src/data/study-abroad-process";
 
 const HERO_QUERY = `
 query {
@@ -66,7 +68,6 @@ query {
       location
     }
   }
-
 
   topInstitutions: institutions(
     sort: ["global_ranking"],     
@@ -176,6 +177,10 @@ const Homepage = async () => {
             train tickets, guided tours, and unique local experiences.
           </>
         }
+      />
+      <StudyAbroadProcess
+        title="HCRC Guide to Studying Abroad"
+        data={studyAbroadProcess.data}
       />
     </>
   );

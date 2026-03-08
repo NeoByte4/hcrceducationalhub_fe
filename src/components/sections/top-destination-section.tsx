@@ -33,8 +33,8 @@ const TopDestinationSection: React.FC<Props> = ({
       <ContainerLayout className="mb-8">
         <TitleContentBlock
           subtitle={subtitle}
-          title={name}
-          description={overview}
+          name={name}
+          overview={overview}
           isCenter
         />
       </ContainerLayout>
