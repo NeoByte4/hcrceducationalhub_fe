@@ -12,6 +12,8 @@ import AboutSection from "@/src/components/sections/about/about-section";
 import StudyAbroadProcess from "@/src/components/sections/study-abroad/study-abroad-process";
 import { studyAbroadProcess } from "@/src/data/study-abroad-process";
 import LatestArticleSection from "@/src/components/sections/article/latest-article-section";
+import SiteReviewSection from "@/src/components/sections/reviews/site-reviews-seciton";
+import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
 
 const HERO_QUERY = `
 query {
@@ -207,6 +209,8 @@ const Homepage = async () => {
           data={blogs}
         />
       )}
+      <SiteReviewSection />
+      <NewsletterSection />
     </>
   );
 };
