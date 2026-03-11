@@ -15,11 +15,16 @@ interface Props {
 const NavItems = ({ countries, institutions, onNavigate }: Props) => {
   const dynamicNavLinks = useMemo(() => {
     return navLinks.map((link) => {
-      if (link.href === routes.country)
-        return { ...link, subPages: institutions };
-      if (link.href === routes.university)
-        return { ...link, subPages: countries };
-      return link;
+      switch (link.href) {
+        case routes.country:
+          return { ...link, subPages: countries };
+
+        case routes.university:
+          return { ...link, subPages: institutions };
+
+        default:
+          return link;
+      }
     });
   }, [countries, institutions]);
 
@@ -66,7 +71,7 @@ const NavItems = ({ countries, institutions, onNavigate }: Props) => {
               )}
             </Link>
             {hasSubPages && (
-              <div className="absolute z-[9005] left-0 top-full hidden group-hover:block min-w-[200px] max-w-xs mt-2">
+              <div className="absolute z-[9005] left-0 top-8 hidden group-hover:block min-w-[200px] max-w-xs mt-2">
                 <div className="p-1.5 bg-surface border rounded-md shadow-md max-h-80 overflow-y-auto">
                   {renderSubPages(
                     navItem.mode,
