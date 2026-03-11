@@ -16,6 +16,7 @@ interface Props {
 
 const DestinationCard: React.FC<Props> = ({ location, image, href }) => {
   const img = getAssetUrl(image);
+
   return (
     <div className="h-full overflow-hidden rounded-lg relative group/destCard">
       <Link aria-label={`Navigate to ${location} details page`} href={href}>

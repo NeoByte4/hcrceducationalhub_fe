@@ -1,7 +1,11 @@
 import { IAsset } from "./generic";
 
 interface ICountryImage {
-  directus_files_id: IAsset;
+  directus_files_id: {
+    id: string;
+    filename_download?: string;
+    description?: string;
+  };
 }
 interface DirectusFile {
   id: string;
@@ -29,7 +33,7 @@ export interface ICountry {
   overview?: string;
   working_hours?: string;
   post_study_work_visa?: string;
-  images?: IAsset;
+  images: ICountryImage[];
   video?: IAsset;
   flag?: IAsset;
   institutions?: IInstitution[];
