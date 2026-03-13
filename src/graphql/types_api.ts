@@ -79,6 +79,7 @@ export interface IProgram {
   program_level?: string;
   key_highlights?: string;
   institution?: IInstitution;
+  category?: string[];
 }
 
 export interface IBlog_MINIMAL {
