@@ -14,6 +14,10 @@ import ToursFilterForm from "@/src/components/forms/tours-filter-form";
 import ErrorTextSection from "@/src/components/notifiers/error-text-section";
 import { shouldRenderSection } from "@/src/utils/should-render-section";
 import UniversityCard from "@/src/components/cards/university/university-card";
+import StudyAbroadProcess from "@/src/components/sections/study-abroad/study-abroad-process";
+import { studyAbroadProcess } from "@/src/data/study-abroad-process";
+import SiteReviewSection from "@/src/components/sections/reviews/site-reviews-seciton";
+import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
 
 const defaultMetaData = {
   meta_title: `Explore Universities ~ ${siteDetails.site_title}`,
@@ -49,6 +53,9 @@ query {
     location
     global_ranking
     established_date
+    logo {
+     id
+    }
     video { id }
     images {
       directus_files_id { id filename_download description }
@@ -90,6 +97,7 @@ interface IUniversity {
   video: { id: string } | null;
   images: IUniversityImage[];
   established_date: string;
+  logo: { id: string } | null;
 }
 
 interface PageProps {
@@ -170,6 +178,8 @@ const Page = async ({ searchParams }: PageProps) => {
                   slug={university.slug}
                   location={university.location}
                   established_date={university.global_ranking}
+                  logo={university.logo}
+                  video={university.video}
                 />
               ))}
             </section>
@@ -177,6 +187,8 @@ const Page = async ({ searchParams }: PageProps) => {
             <ErrorTextSection customMsg="No universities matching this query." />
           )}
         </TwoColumnLayout>
+        <SiteReviewSection />
+        <NewsletterSection />
       </SpacingLayout>
     </>
   );

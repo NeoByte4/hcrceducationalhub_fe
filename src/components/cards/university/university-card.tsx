@@ -25,6 +25,8 @@ interface Props {
   slug: string;
   location: string;
   established_date: string;
+  logo: { id: string } | null;
+  video: { id: string } | null;
 }
 
 const UniversityCard: React.FC<Props> = ({
@@ -36,6 +38,8 @@ const UniversityCard: React.FC<Props> = ({
   subtitle,
   global_ranking,
   established_date,
+  logo,
+  video,
 }) => {
   const img = getAssetUrl(image[0]?.directus_files_id);
   console.log(name);
@@ -53,6 +57,17 @@ const UniversityCard: React.FC<Props> = ({
           {global_ranking && (
             <div className="absolute top-2 right-2 bg-background text-xs font-semibold px-2 py-1 rounded shadow">
               #{global_ranking}
+            </div>
+          )}
+          {logo && (
+            <div className="absolute bottom-1 left-1 z-20 w-8 h-8 rounded-lg overflow-hidden border-2 border-white shadow-lg bg-white">
+              <Image
+                width={64}
+                height={64}
+                src={getAssetUrl(logo).src}
+                alt={`${name} logo`}
+                className="w-full h-full object-cover"
+              />
             </div>
           )}
           <span className="sr-only">View details for {name} university</span>

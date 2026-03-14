@@ -143,7 +143,8 @@ const ContactForm = () => {
         <label className="flex items-center cursor-pointer gap-2">
           <input type="checkbox" {...register("allowSubsciption")} />
           <span className="text-sm text-text-secondary">
-            Keep me updated with travel ideas and exclusive deals
+            Keep me updated with study abroad opportunities, scholarship
+            updates, and university admission news
           </span>
         </label>
 
