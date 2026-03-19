@@ -51,3 +51,5 @@ const DestinationCard: React.FC<Props> = ({ location, image, href }) => {
 };
 
 export default DestinationCard;
+
+// CountryCard

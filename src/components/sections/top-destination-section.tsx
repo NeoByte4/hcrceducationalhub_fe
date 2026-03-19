@@ -3,7 +3,7 @@
 import ContainerLayout from "../layouts/container-layout";
 import { IDestination_MINIMAL } from "@/src/graphql/types_api";
 import TitleContentBlock from "../contents/title-content-block";
-import DestinationCard from "../cards/destination/destination-card";
+import CountryCard from "../cards/country/destination-card";
 import { routes } from "@/lib/routes";
 
 const spanPatterns = [
@@ -46,7 +46,7 @@ const TopDestinationSection: React.FC<Props> = ({
               key={country.slug}
               className={spanPatterns[index % spanPatterns.length]}
             >
-              <DestinationCard
+              <CountryCard
                 location={country.name}
                 image={country.images[1]?.directus_files_id}
                 href={`${routes.country}/${country.slug}`}

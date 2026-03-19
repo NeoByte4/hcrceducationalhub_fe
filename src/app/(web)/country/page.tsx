@@ -10,7 +10,7 @@ import KeywordSearch from "@/src/components/forms/keyword-search";
 import { Link, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContainerLayout from "@/src/components/layouts/container-layout";
-import DestinationCard from "@/src/components/cards/destination/destination-card";
+import CountryCard from "@/src/components/cards/country/destination-card";
 import ErrorTextSection from "@/src/components/notifiers/error-text-section";
 import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
 
@@ -146,7 +146,7 @@ const Page = async ({ searchParams }: PageProps) => {
                     (i + 1) % 3 === 0 && "md:col-span-2 lg:col-span-1"
                   }`}
                 >
-                  <DestinationCard
+                  <CountryCard
                     location={destination.name}
                     image={
                       destination.images?.[0]?.directus_files_id ?? { id: "" }
