@@ -63,6 +63,7 @@ export interface ICountry {
   flag?: IAsset;
   information_video?: { directus_files_id: IAsset }[];
   institutions?: IInstitution[];
+  faq?: IFaq[];
 }
 
 export interface IInstitution {
@@ -158,6 +159,7 @@ export interface IBlog_MINIMAL {
 }
 
 export interface IFaq {
+  id: string;
   question: string;
   answer: string;
 }

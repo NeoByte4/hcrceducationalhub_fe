@@ -109,12 +109,12 @@ query ($slug: String!) {
     }
     
   information_video {
-  directus_files_id {
+    directus_files_id {
     id
     filename_download
     description
-  }
-}
+    }
+    }
 
     images {
       directus_files_id {
@@ -122,6 +122,12 @@ query ($slug: String!) {
         filename_download
         description
       }
+    }
+
+
+    faq {
+      question
+      answer
     }
 
     institutions {
@@ -227,6 +233,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         requirements_data={destination.requirements_data}
         information_document={destination.information_document}
         data={{}}
+        faq={destination.faq}
       />
     </>
   );

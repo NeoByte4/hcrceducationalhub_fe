@@ -6,7 +6,7 @@ import {
   IRequirements_data,
 } from "@/src/graphql/types_api";
 import React, { useRef, useState } from "react";
-import { ArrowUpRight, CopyIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
 import { Button } from "@/components/ui/button";
@@ -31,6 +31,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import FaqSection from "@/src/components/sections/question/faq-section";
 
 interface props {
   tab: string;
@@ -45,6 +46,7 @@ interface props {
   images: ICountry["images"];
   institutions: ICountry["institutions"];
   information_video: ICountry["information_video"];
+  faq: ICountry["faq"];
   locations: Array<{
     title: string;
     value: string;
@@ -65,6 +67,7 @@ const tabs = [
 export default function CountryStatic({
   tab,
   name,
+  faq,
   overview,
   slug,
   subtitle,
@@ -77,6 +80,8 @@ export default function CountryStatic({
   requirements_data,
   information_video,
 }: props) {
+  console.log(faq);
+
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeTab, setActiveTab] = useState(
     tabs.some((t) => t.key === tab) ? tab : "overview",
@@ -215,7 +220,6 @@ export default function CountryStatic({
           {information_video && information_video.length > 0 && (
             <div className="mt-6">
               <SubHeadingText>Information Videos</SubHeadingText>
-
               <Carousel
                 className="w-full mt-4"
                 opts={{ align: "start", loop: true }}
@@ -254,7 +258,6 @@ export default function CountryStatic({
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-
                 <CarouselPrevious className="left-2" />
                 <CarouselNext className="right-2" />
               </Carousel>
@@ -274,7 +277,6 @@ export default function CountryStatic({
                 extraParams={{ tab: "tours" }}
               />
             </div>
-
             <div className="relative z-100">
               <ToursFilterForm
                 redirectRoute={routes.program}
@@ -284,7 +286,6 @@ export default function CountryStatic({
               />
             </div>
           </div>
-
           {shouldRenderSection(institutions) ? (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-4">
               {institutions?.map((institution) => (
@@ -342,7 +343,7 @@ export default function CountryStatic({
         <TwoColumnLayout sidebar={<SidebarContactForm />}>
           {renderContent()}
         </TwoColumnLayout>
-
+        {shouldRenderSection(faq) && <FaqSection data={faq} name={name} />}
         <NewsletterSection />
       </SpacingLayout>
     </>
