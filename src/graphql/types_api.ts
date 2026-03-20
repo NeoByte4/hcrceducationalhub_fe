@@ -73,20 +73,139 @@ export interface IInstitution {
   subtitle?: string;
   overview?: string;
   location?: string;
-
   latitude?: number;
   longitude?: number;
-
   global_ranking?: number;
   national_ranking?: number;
   established_date?: string;
 
-  images?: InstitutionImage[];
-  video?: IAsset;
-  logo?: IAsset;
+  images?: Array<{
+    directus_files_id: {
+      id: string;
+      filename_download?: string;
+      description?: string;
+    };
+  }>;
 
-  country?: ICountry[];
-  programs?: IProgram[];
+  video?: {
+    id: string;
+    filename_download?: string;
+    description?: string;
+  };
+
+  logo?: {
+    id: string;
+    filename_download?: string;
+    description?: string;
+  };
+
+  information_video?: Array<{
+    directus_files_id: {
+      id: string;
+      filename_download?: string;
+      description?: string;
+    };
+  }>;
+
+  program?: Array<{
+    id: string;
+    name: string;
+    slug: string;
+  }>;
+
+  country?: Array<{
+    id: string;
+    name: string;
+    slug: string;
+  }>;
+
+  intakes?: Array<{
+    name: string;
+    start_date?: string;
+    seats_available?: string;
+    end_date?: string;
+  }>;
+
+  fees_structure?: Array<{
+    fee_name?: string;
+    amount?: string;
+    program?: {
+      name: string;
+      slug: string;
+    };
+    note?: string;
+  }>;
+
+  information_document?: Array<{
+    name?: string;
+    file?: {
+      id: string;
+      filename_download?: string;
+      description?: string;
+    };
+    description?: string;
+  }>;
+
+  admission_requirement_data?: Array<{
+    academic_level?: string;
+    gpa?: string;
+    major_subject?: string;
+    ielts?: string;
+    toefl?: string;
+    pte?: string;
+    note?: string;
+  }>;
+
+  faq?: Array<{
+    question: string;
+    answer: string;
+  }>;
+
+  requirements_data?: IRequirements_data[];
+}
+export interface IIntake {
+  name: string;
+  start_date?: string;
+  seats_available?: string;
+  end_date?: string;
+  program?: IProgram;
+  institution?: IInstitution;
+}
+
+export interface IPackage {
+  id: string;
+  intake_name: string;
+  start_date: string;
+  end_date?: string;
+  application_deadline?: string;
+  seats_available?: number;
+
+  program?: IProgram;
+  university?: IInstitution;
+
+  total_fee?: number;
+  status?: "open" | "closed";
+  category?: string;
+  fee_type?: string;
+}
+
+export interface IFeesStructure {
+  fee_name?: string;
+  amount?: string;
+  program?: IProgram;
+  institution?: IInstitution;
+  note?: string;
+}
+export interface IAdmissionRequirementData {
+  academic_level?: string;
+  gpa?: string;
+  major_subject?: string;
+  ielts?: string;
+  toefl?: string;
+  pte?: string;
+  note?: string;
+  program?: IProgram;
+  institution?: IInstitution;
 }
 
 export interface IProgram {
@@ -159,7 +278,7 @@ export interface IBlog_MINIMAL {
 }
 
 export interface IFaq {
-  id: string;
+  id?: string;
   question: string;
   answer: string;
 }

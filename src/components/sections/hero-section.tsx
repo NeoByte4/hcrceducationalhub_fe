@@ -18,7 +18,7 @@ interface SlideshowItem {
 }
 
 interface Props {
-  image: IAsset;
+  image?: IAsset;
   subtitle?: string;
   title: string | React.ReactNode;
   description?: string | React.ReactNode;
@@ -30,6 +30,8 @@ interface Props {
   overlayOpacity?: "light" | "medium" | "dark";
   height?: "small" | "medium" | "large";
   slideshowImages?: SlideshowItem[];
+  logo?: IAsset;
+  global_ranking?: string;
 }
 
 const HeroSection: React.FC<Props> = ({
@@ -43,6 +45,8 @@ const HeroSection: React.FC<Props> = ({
   ctaHref,
   height = "medium",
   slideshowImages,
+  global_ranking,
+  logo,
 }) => {
   const heightClasses = {
     small: "h-[40vh] md:h-[50vh]",
@@ -122,6 +126,23 @@ const HeroSection: React.FC<Props> = ({
             priority
             fetchPriority="high"
           />
+        )}
+        {logo && (
+          <div className="absolute top-4 left-4 z-50 w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg bg-white">
+            <Image
+              width={64}
+              height={64}
+              src={getAssetUrl(logo).src}
+              alt="Logo"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        {global_ranking && (
+          <div className="absolute top-4 right-4 z-50 bg-black/40 backdrop-blur-sm text-white text-sm font-semibold px-3 py-1.5 rounded-full border border-white/30 shadow">
+            🏆Global Rank : {global_ranking}
+          </div>
         )}
 
         {/* <div className={`absolute inset-0 ${overlayClasses[overlayOpacity]} rounded-lg`} /> */}

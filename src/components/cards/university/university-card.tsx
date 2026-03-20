@@ -42,7 +42,6 @@ const UniversityCard: React.FC<Props> = ({
   video,
 }) => {
   const img = getAssetUrl(image[0]?.directus_files_id);
-  console.log(name);
   return (
     <div className="bg-bg hover:bg-primary-dark/2 transition-all border rounded-lg p-2 relative flex flex-col h-full group/card">
       <div className="w-full aspect-[1/0.65] max-h-72 relative">
