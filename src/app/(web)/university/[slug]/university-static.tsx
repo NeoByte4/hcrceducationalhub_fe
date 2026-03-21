@@ -1,12 +1,7 @@
 "use client";
 
 import React, { JSX, useRef, useState } from "react";
-import {
-  IInstitution,
-  IIntake,
-  IFeesStructure,
-  IPackage,
-} from "@/src/graphql/types_api";
+import { IInstitution, IIntake } from "@/src/graphql/types_api";
 
 import TitleContentBlock from "@/src/components/contents/title-content-block";
 import { shouldRenderSection } from "@/src/utils/should-render-section";
@@ -145,6 +140,11 @@ export default function UniversityStatic({
               overview={`Check all upcoming intakes at the ${name} university and their availability.`}
               data={intakes || []}
               columns={[
+                {
+                  key: "program",
+                  title: "Program",
+                  render: (item: IIntake) => item.program?.name || "N/A",
+                },
                 { key: "name", title: "Intake Name" },
                 {
                   key: "start_date",
@@ -335,7 +335,12 @@ export default function UniversityStatic({
                     key={programItem.slug}
                     className="last:hidden xl:last:block"
                   >
-                    <ProgramCard program={programItem} />
+                    <ProgramCard
+                      program={programItem}
+                      institution_name={name}
+                      logo={logo}
+                      location={location}
+                    />
                   </div>
                 ))}
             </div>

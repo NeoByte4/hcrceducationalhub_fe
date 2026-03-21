@@ -5,7 +5,6 @@ import { fetchMetaData } from "@/src/lib/fetch-metadata";
 import { siteDetails } from "@/src/data/sit-details";
 import { IInstitution } from "@/src/graphql/types_api";
 import { axiosDataInstance } from "@/src/axios/axios";
-import CountryStatic from "../../country/[slug]/country-static";
 import UniversityStatic from "./university-static";
 
 interface MetadataResponse {
@@ -122,11 +121,9 @@ id
   name
     slug
     subtitle
-    overview
     duration
     program_level
     credits_hours
-    key_highlights
       images {
       directus_files_id {
         id
@@ -142,6 +139,10 @@ name
 start_date 
 seats_available 
 end_date 
+program{
+  name
+  slug
+  }
 
 }
 

@@ -70,7 +70,7 @@ function GenericTable<T extends Record<string, unknown>>({
 
         <TableBody>
           {data.map((row, idx) => (
-            <TableRow key={idx} className="hover:bg-zinc-100">
+            <TableRow key={idx} className="hover:bg-zinc-100 text-sm">
               {columns.map((col) => (
                 <TableCell key={col.key as string}>
                   {col.render

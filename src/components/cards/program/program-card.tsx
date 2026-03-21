@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IProgram } from "@/src/graphql/types_api";
+import { IInstitution, IProgram } from "@/src/graphql/types_api";
 import { getAssetUrl } from "@/src/utils/getAssetUrl";
-import HighlightText from "@/components/ui/highlite-text";
-import StyledButton from "@/components/ui/styled-button";
 import Ribbon from "../../primitives/ribbon";
 import { routes } from "@/lib/routes";
 import IconText from "../../primitives/icon-text";
@@ -14,21 +12,27 @@ import { Button } from "@/components/ui/button";
 interface ProgramCardProps {
   program: IProgram;
   discount?: number;
+  institution_name?: string;
+  logo?: IInstitution["logo"];
+  location?: IInstitution["location"];
 }
 
-const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
+const ProgramCard: React.FC<ProgramCardProps> = ({
+  program,
+  institution_name,
+  logo,
+  location,
+}) => {
   const {
     name,
     slug,
     subtitle,
-    overview,
     duration,
     program_level,
     credits_hours,
     images,
     discount,
     rating = 2.4,
-    key_highlights,
     institution,
   } = program;
   const shouldShowDiscount = discount != null && discount > 0;
@@ -40,7 +44,9 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL;
   const logoSrc = institution?.logo?.id
     ? `${DIRECTUS_URL}/assets/${institution.logo.id}`
-    : null;
+    : logo?.id
+      ? `${DIRECTUS_URL}/assets/${logo.id}`
+      : "/placeholder.jpg";
 
   return (
     <div className="bg-bg hover:bg-primary-dark/2 transition-all border rounded-lg p-2 relative flex flex-col h-full group/card">
@@ -77,14 +83,14 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
           <div className="flex items-center justify-between text-sm font-medium font-secondary my-2">
             <div className="flex items-center gap-2">
               <Image
-                src={logoSrc || "/placeholder.jpg"}
+                src={logoSrc || logo?.id || "/placeholder.jpg"}
                 alt={institution?.name || "Institution Logo"}
                 width={30}
                 height={30}
                 className="w-7 h-7 rounded-sm object-cover"
               />
 
-              {institution?.name || "Institution Name"}
+              {institution?.name || institution_name || "Institution Name"}
             </div>
             <IconText icon={Star} text={`${rating}`} />
           </div>
@@ -97,10 +103,10 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
             </HeadingText>
             <span className="sr-only">View details for {name} program</span>
           </Link>
-          {overview && (
+          {subtitle && (
             <div
               className="line-clamp-2 text-text-secondary mb-3 text-sm"
-              dangerouslySetInnerHTML={{ __html: overview }}
+              dangerouslySetInnerHTML={{ __html: subtitle }}
             />
           )}
         </div>
@@ -109,22 +115,21 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
           <div className="grid grid-cols-2 border-y border-y-primary-dark border-dashed items-center">
             <div className="p-3 border-r border-r-primary-dark border-dashed">
               <p className="font-semibold">{duration} </p>
-              <div className="flex items-center flex-wrap gap-1 text-text-secondary mt-2">
-                {credits_hours && (
-                  <span className="text-xs">{credits_hours} Credits</span>
-                )}
+
+              <div className=" flex item-center ">
+                <MapPin size={16} />
+                <p className="text-text-secondary text-xs capitalize">
+                  {location || "Location"}
+                </p>
               </div>
             </div>
 
             <div className="p-3 border-r border-r-primary-dark border-dashed">
-              <p className="font-semibold">
-                {institution?.name || "Institution Name"}
-              </p>
-              <div className=" flex item-center ">
-                <MapPin size={16} />
-                <p className="text-text-secondary text-xs capitalize">
-                  {institution?.location || "Location"}
-                </p>
+              <p className="font-semibold">{program_level}</p>
+              <div className="flex items-center flex-wrap gap-1 text-text-secondary mt-2">
+                {credits_hours && (
+                  <span className="text-xs">{credits_hours} Credits</span>
+                )}
               </div>
             </div>
           </div>
