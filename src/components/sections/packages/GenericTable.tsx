@@ -11,8 +11,9 @@ import {
 import ContainerLayout from "../../layouts/container-layout";
 import TitleContentBlock from "../../contents/title-content-block";
 import { Button } from "@/components/ui/button";
+import SubHeadingText from "@/components/ui/sub-heading-text";
 
-interface GenericTableProps<T extends Record<string, unknown>> {
+interface GenericTableProps<T> {
   title: string;
   overview: string;
   data: T[];
@@ -30,7 +31,7 @@ interface GenericTableProps<T extends Record<string, unknown>> {
   };
 }
 
-function GenericTable<T extends Record<string, unknown>>({
+function GenericTable<T>({
   title,
   overview,
   data,
@@ -46,9 +47,10 @@ function GenericTable<T extends Record<string, unknown>>({
   };
 
   return (
-    <ContainerLayout className="mt-10">
-      <TitleContentBlock name={title} />
-      <Table className="w-full mt-2">
+    <>
+      <SubHeadingText> {title} </SubHeadingText>
+      {/* <p className=" ">{overview}</p> */}
+      <Table className="w-full mt-5">
         <TableHeader style={{ backgroundColor: "var(--color-primary-dark)" }}>
           <TableRow className="hover:bg-transparent">
             {columns.map((col) => (
@@ -81,7 +83,7 @@ function GenericTable<T extends Record<string, unknown>>({
               {button && (
                 <TableCell>
                   <Button
-                    className="cursor-pointer hover:border hover:border-1"
+                    className="cursor-pointer  border-1"
                     size={"sm"}
                     variant={button.variant || "secondary"}
                     disabled={button.disabled?.(row) || false}
@@ -95,7 +97,7 @@ function GenericTable<T extends Record<string, unknown>>({
           ))}
         </TableBody>
       </Table>
-    </ContainerLayout>
+    </>
   );
 }
 

@@ -159,7 +159,7 @@ const Page = async ({ searchParams }: PageProps) => {
             </div>
           </div>
 
-          {/* {shouldRenderSection(filteredPrograms) ? (
+          {shouldRenderSection(filteredPrograms) ? (
             <section className="grid gap-6 grid-cols-1 xl:grid-cols-2 items-stretch">
               {filteredPrograms.map((program: IProgram) => (
                 <ProgramCard key={program.slug} program={program} />
@@ -167,7 +167,7 @@ const Page = async ({ searchParams }: PageProps) => {
             </section>
           ) : (
             <ErrorTextSection customMsg="No programs matching your query." />
-          )} */}
+          )}
         </TwoColumnLayout>
         <SiteReviewSection />
         <NewsletterSection />

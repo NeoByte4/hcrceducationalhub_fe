@@ -198,12 +198,7 @@ async function fetchInstitutionBySlug(
 
     return response.data.data as InstitutionResponse;
   } catch (error) {
-    console.error(
-      "GraphQL errors:",
-      console.log(error),
-      "Error fetching institution:",
-      error,
-    );
+    console.error("GraphQL errors:", "Error fetching institution:", error);
     return { institutions: [] };
   }
 }

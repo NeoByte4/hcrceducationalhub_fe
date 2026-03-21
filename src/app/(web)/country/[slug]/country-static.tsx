@@ -80,7 +80,7 @@ export default function CountryStatic({
   requirements_data,
   information_video,
 }: props) {
-  console.log(faq);
+  
 
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeTab, setActiveTab] = useState(

@@ -222,9 +222,15 @@ export interface IProgram {
   duration?: string;
   program_level?: string;
   key_highlights?: string;
-
+  fees_structure?: IFeesStructure[];
+  intakes?: IIntake[];
+  admission_requirement_data?: IAdmissionRequirementData[];
+  information_document?: IInformation_document[];
+  requirements_data?: IRequirements_data[];
+  faq?: IFaq[];
   institution?: IInstitution;
   category?: string[];
+  information_video?: { directus_files_id: IAsset }[];
 }
 
 /* =====================================================

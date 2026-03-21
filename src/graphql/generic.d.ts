@@ -1,5 +1,6 @@
 export interface IAsset {
   id: string;
+  filename_download?: string;
   description?: string;
 }
 
