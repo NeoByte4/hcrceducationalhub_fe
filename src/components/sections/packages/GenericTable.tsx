@@ -55,6 +55,7 @@ function GenericTable<T>({
           <TableRow className="hover:bg-transparent">
             {columns.map((col) => (
               <TableCell
+                className="truncate"
                 key={col.key as string}
                 style={{ color: "var(--color-on-primary)", fontWeight: 500 }}
               >
@@ -64,7 +65,7 @@ function GenericTable<T>({
             {button && (
               <TableCell
                 style={{ color: "var(--color-on-primary)", fontWeight: 500 }}
-                className="w-[140px]"
+                className=" max-w-[150px]"
               />
             )}
           </TableRow>
@@ -74,7 +75,10 @@ function GenericTable<T>({
           {data.map((row, idx) => (
             <TableRow key={idx} className="hover:bg-zinc-100 text-sm">
               {columns.map((col) => (
-                <TableCell key={col.key as string}>
+                <TableCell
+                  className="truncate max-w-[150px]"
+                  key={col.key as string}
+                >
                   {col.render
                     ? col.render(row)
                     : renderValue(row[col.key as keyof T])}

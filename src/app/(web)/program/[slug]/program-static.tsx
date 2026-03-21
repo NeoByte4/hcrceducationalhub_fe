@@ -333,17 +333,12 @@ export default function ProgramStatic({
                 {
                   key: "amount",
                   title: "Amount",
-                  render: (item) => item.amount + " $ " || "-",
+                  render: (item) => item.amount || "-",
                 },
                 {
                   key: "program",
                   title: "Program",
                   render: (item) => item.program?.name || "N/A",
-                },
-                {
-                  key: "note",
-                  title: "Note",
-                  render: (item) => item.note || "-",
                 },
               ]}
               button={{
