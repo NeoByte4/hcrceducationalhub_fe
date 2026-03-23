@@ -8,4 +8,5 @@ export const routes = {
   program: "/program",
   reviews: "/reviews",
   thankYou: "/thank-you",
+  counseling: "/counseling",
 };

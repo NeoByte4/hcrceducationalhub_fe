@@ -63,44 +63,54 @@ const HeroSection: React.FC<Props> = ({
       >
         {slideshowImages && slideshowImages.length > 0 ? (
           <div className="absolute w-full inset-0 overflow-hidden rounded-lg">
-            <Carousel
-              opts={{
-                loop: true,
-                duration: 35,
-              }}
-              plugins={[
-                Autoplay({
-                  delay: 7500,
-                }),
-              ]}
-              className="w-full h-full"
-            >
-              <CarouselContent className="-ml-0">
-                {slideshowImages.map((image, idx) => {
-                  const img = getAssetUrl(image.directus_files_id);
-
-                  return (
-                    <CarouselItem
-                      key={img.src}
-                      className="relative h-full basis-full pl-0"
-                    >
-                      <Image
-                        src={img.src}
-                        alt={
-                          img.alt ?? `Carousel image ${idx + 1} for ${title}`
-                        }
-                        width={1600}
-                        height={900}
-                        className="object-cover rounded-lg w-full h-full"
-                        sizes="100vw"
-                        quality={75}
-                        priority={idx === 0}
-                      />
-                    </CarouselItem>
-                  );
-                })}
-              </CarouselContent>
-            </Carousel>
+            {slideshowImages.length === 1 ? (
+              // ── SINGLE IMAGE: static, no carousel ──
+              <Image
+                src={getAssetUrl(slideshowImages[0].directus_files_id).src}
+                alt={
+                  getAssetUrl(slideshowImages[0].directus_files_id).alt ??
+                  `Hero image for ${title}`
+                }
+                width={1600}
+                height={900}
+                className="object-cover rounded-lg w-full h-full"
+                sizes="100vw"
+                quality={100}
+                priority
+              />
+            ) : (
+              // ── MULTIPLE IMAGES: carousel with slide ──
+              <Carousel
+                opts={{ loop: true, duration: 35 }}
+                plugins={[Autoplay({ delay: 4000 })]}
+                className="w-full h-full"
+              >
+                <CarouselContent className="-ml-0">
+                  {slideshowImages.map((image, idx) => {
+                    const img = getAssetUrl(image.directus_files_id);
+                    return (
+                      <CarouselItem
+                        key={img.src}
+                        className="relative h-full basis-full pl-0"
+                      >
+                        <Image
+                          src={img.src}
+                          alt={
+                            img.alt ?? `Carousel image ${idx + 1} for ${title}`
+                          }
+                          width={1600}
+                          height={900}
+                          className="object-cover rounded-lg w-full h-full"
+                          sizes="100vw"
+                          quality={75}
+                          priority={idx === 0}
+                        />
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+              </Carousel>
+            )}
           </div>
         ) : video ? (
           <div className="absolute inset-0 overflow-hidden rounded-lg">

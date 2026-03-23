@@ -41,6 +41,27 @@ export interface IInformation_document {
   country?: ICountry;
 }
 
+export interface ISteps {
+  name?: string;
+  overview?: string;
+  counseling?: ICounseling;
+}
+interface SlideshowItem {
+  directus_files_id: IAsset;
+}
+export interface ICounseling {
+  name?: string;
+  subtitle?: string;
+  targetAudience?: string[];
+  counseling_video?: IAsset;
+  counseling_image?: SlideshowItem[];
+  inclusion?: string[];
+  exclusion?: string[];
+  steps?: ISteps[];
+  notes?: string;
+  overview?: string;
+}
+
 /* =====================================================
    3. CORE ENTITIES
 ===================================================== */

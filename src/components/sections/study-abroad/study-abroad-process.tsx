@@ -6,10 +6,10 @@ import {
   Plane,
   LucideIcon,
 } from "lucide-react";
-import StepCard from "@/components/ui/StepCard";
+
 import ContainerLayout from "../../layouts/container-layout";
 import StyledButton from "@/components/ui/styled-button";
-
+import StepCard from "@/components/ui/StepCard";
 const iconMap: Record<string, LucideIcon> = {
   UserCheck,
   GraduationCap,
@@ -22,7 +22,7 @@ interface ProcessItem {
   title: string;
   subtitle: string;
   icon: string;
-  link?: { text: string; href: string };
+  route?: string;
 }
 
 interface StudyAbroadProcessProps {
@@ -49,7 +49,6 @@ const StudyAbroadProcess: React.FC<StudyAbroadProcessProps> = ({
             </p>
           )}
         </div>
-
         <div className="relative w-full grid grid-cols-1 md:grid-cols-4 gap-y-10 md:gap-x-4 lg:gap-x-6">
           {data.map((item, index) => {
             const Icon = iconMap[item.icon];
@@ -61,7 +60,7 @@ const StudyAbroadProcess: React.FC<StudyAbroadProcessProps> = ({
                 subtitle={item.subtitle}
                 isLast={index === data.length - 1}
                 icon={Icon ? <Icon size={36} strokeWidth={1.5} /> : null}
-                link={item.link}
+                link={item.route}
               />
             );
           })}

@@ -13,6 +13,7 @@ import ContainerLayout from "@/src/components/layouts/container-layout";
 import CountryCard from "@/src/components/cards/country/destination-card";
 import ErrorTextSection from "@/src/components/notifiers/error-text-section";
 import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
+import { ICountry } from "@/src/graphql/types_api";
 
 const defaultMetaData = {
   meta_title: `Explore Countries ~ ${siteDetails.site_title}`,
@@ -65,21 +66,6 @@ const fetchCountries = async () => {
   });
   return response.data.data;
 };
-
-interface ICountryImage {
-  directus_files_id: {
-    id: string;
-    filename_download?: string;
-    description?: string;
-  };
-}
-
-interface ICountry {
-  name: string;
-  slug: string;
-  video: { id: string } | null;
-  images: ICountryImage[];
-}
 
 interface PageProps {
   searchParams: Promise<{ keyword?: string }>;
