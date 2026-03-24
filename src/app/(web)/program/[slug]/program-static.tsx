@@ -52,6 +52,7 @@ const tabs = [{ key: "overview", title: "Overview" }];
 export default function ProgramStatic({
   tab,
   name,
+  slug,
   subtitle,
   overview,
   duration,
@@ -150,11 +151,14 @@ export default function ProgramStatic({
                 button={{
                   label: "Apply Now",
                   onClick: (intake: IIntake) => {
-                    const slug = intake.program?.slug;
-                    if (slug) {
+                    if (slug && intake.id) {
                       router.push(`${routes.form}/${slug}/${intake.id}`);
                     }
                   },
+                  variant: "secondary",
+                  size: "sm",
+                  disabled: (item) =>
+                    item.end_date ? new Date(item.end_date) < new Date() : true,
                 }}
               />
             </div>

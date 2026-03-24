@@ -154,27 +154,6 @@ export default function ApplicationFormClient({
                 className="bg-gray-100 cursor-not-allowed"
               />
             </FormElementsWrapper>
-            {intake.end_date && (
-              <FormElementsWrapper name="endDate" label="End Date">
-                <Input
-                  value={new Date(intake.end_date).toLocaleDateString()}
-                  readOnly
-                  className="bg-gray-100 cursor-not-allowed"
-                />
-              </FormElementsWrapper>
-            )}
-            {intake.seats_available && (
-              <FormElementsWrapper
-                name="seatsAvailable"
-                label="Seats Available"
-              >
-                <Input
-                  value={intake.seats_available}
-                  readOnly
-                  className="bg-gray-100 cursor-not-allowed"
-                />
-              </FormElementsWrapper>
-            )}
           </div>
         </section>
 
@@ -262,7 +241,7 @@ export default function ApplicationFormClient({
               >
                 <Input
                   {...register(`users.${index}.gpa`, {})}
-                  placeholder="4.0 / 3.5 etc."
+                  placeholder="4.0 / 2.5 etc."
                 />
               </FormElementsWrapper>
             </div>
