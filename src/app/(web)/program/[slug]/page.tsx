@@ -95,6 +95,7 @@ query ($slug: String!) {
     key_highlights
 
     intakes {
+    id
       name
       start_date
       seats_available

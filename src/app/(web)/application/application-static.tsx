@@ -25,6 +25,7 @@ import { getAssetUrl } from "@/src/utils/getAssetUrl";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface props {
   name: IApplicationPage["name"];
@@ -62,6 +63,7 @@ export default function ApplicationPageStatic({
       : img.directus_files_id,
   );
 
+  const router = useRouter();
   return (
     <>
       <HeroSection
@@ -195,8 +197,12 @@ export default function ApplicationPageStatic({
               ]}
               button={{
                 label: "Apply Now",
-                onClick: (item) =>
-                  (window.location.href = `/apply/${item.name}`),
+                onClick: (intake: IIntake) => {
+                  const slug = intake.program?.slug;
+                  if (slug) {
+                    router.push(`${routes.form}/${slug}/${intake.id}`);
+                  }
+                },
               }}
             />
           </div>

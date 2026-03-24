@@ -68,6 +68,7 @@ query GetApplicationPage {
     }
   }
       intakes {
+    id
     name
     start_date
     seats_available

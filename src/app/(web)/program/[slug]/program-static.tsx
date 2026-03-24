@@ -23,9 +23,10 @@ import SpacingLayout from "@/src/components/layouts/spacing-layout";
 import TwoColumnLayout from "@/src/components/layouts/two-column-layout";
 import SidebarContactForm from "@/src/components/sidebar/sidebar-contact-form";
 import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
-import ErrorTextSection from "@/src/components/notifiers/error-text-section";
 import { shouldRenderSection } from "@/src/utils/should-render-section";
 import ContainerLayout from "@/src/components/layouts/container-layout";
+import { routes } from "@/lib/routes";
+import { useRouter } from "next/navigation";
 
 interface Props {
   tab?: string;
@@ -51,7 +52,6 @@ const tabs = [{ key: "overview", title: "Overview" }];
 export default function ProgramStatic({
   tab,
   name,
-  slug,
   subtitle,
   overview,
   duration,
@@ -66,6 +66,7 @@ export default function ProgramStatic({
   images,
   information_video,
 }: Props): JSX.Element {
+  const router = useRouter();
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeTab, setActiveTab] = useState(
     tab && tabs.some((t) => t.key === tab) ? tab : "overview",
@@ -148,8 +149,12 @@ export default function ProgramStatic({
                 ]}
                 button={{
                   label: "Apply Now",
-                  onClick: (item) =>
-                    (window.location.href = `/apply/${slug}/${item.name}`),
+                  onClick: (intake: IIntake) => {
+                    const slug = intake.program?.slug;
+                    if (slug) {
+                      router.push(`${routes.form}/${slug}/${intake.id}`);
+                    }
+                  },
                 }}
               />
             </div>

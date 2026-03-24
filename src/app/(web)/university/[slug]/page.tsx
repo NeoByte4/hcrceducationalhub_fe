@@ -135,6 +135,7 @@ id
 
 
 intakes {
+ id
 name 
 start_date 
 seats_available 
@@ -217,7 +218,6 @@ export default async function Page({ params, searchParams }: PageProps) {
   const institution = data?.institutions?.[0] ?? null;
 
   if (!institution) notFound();
-
   return (
     <>
       <UniversityStatic

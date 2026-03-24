@@ -51,11 +51,11 @@ export default function CounselingStatic({
 }: props) {
   const hasImages = counseling_image && counseling_image.length > 0;
   const hasSteps = steps && steps.length > 0;
-  console.log(intakes);
+
   const firstImage = hasImages
     ? getAssetUrl(counseling_image[0].directus_files_id)
     : null;
-  console.log(intakes);
+
   return (
     <>
       <HeroSection

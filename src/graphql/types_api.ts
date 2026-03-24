@@ -141,6 +141,7 @@ export interface IInstitution {
   }>;
 
   intakes?: Array<{
+    id: string;
     name: string;
     start_date?: string;
     seats_available?: string;
@@ -185,6 +186,7 @@ export interface IInstitution {
   requirements_data?: IRequirements_data[];
 }
 export interface IIntake {
+  id: string;
   name: string;
   start_date?: string;
   seats_available?: string;

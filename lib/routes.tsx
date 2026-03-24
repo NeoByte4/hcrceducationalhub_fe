@@ -10,4 +10,5 @@ export const routes = {
   thankYou: "/thank-you",
   counseling: "/counseling",
   application: "/application",
+  form: "/form",
 };

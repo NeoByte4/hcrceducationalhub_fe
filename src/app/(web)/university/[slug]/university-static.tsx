@@ -29,6 +29,7 @@ import NewsletterSection from "@/src/components/sections/newsletter/newsletter-s
 import GenericTable from "@/src/components/sections/packages/GenericTable";
 import ProgramCard from "@/src/components/cards/program/program-card";
 import ErrorTextSection from "@/src/components/notifiers/error-text-section";
+import { useRouter } from "next/navigation";
 
 interface Props {
   tab: string;
@@ -75,7 +76,6 @@ export default function UniversityStatic({
   video,
   images,
   intakes,
-  fees_structure,
   faq,
   admission_requirement_data,
   information_document,
@@ -86,6 +86,7 @@ export default function UniversityStatic({
   const [activeTab, setActiveTab] = useState(
     tabs.some((t) => t.key === tab) ? tab : "overview",
   );
+  const router = useRouter();
 
   const renderTabs = () =>
     tabs.map(({ key, title }) => (
@@ -134,12 +135,12 @@ export default function UniversityStatic({
             )}
           </div>
 
-          {fees_structure && fees_structure.length > 0 && (
+          {intakes && intakes.length > 0 && (
             <div className="mt-8">
               <GenericTable
                 title="Intakes"
                 overview={`Check all upcoming intakes at the ${name} university and their availability.`}
-                data={intakes || []}
+                data={intakes}
                 columns={[
                   {
                     key: "program",
@@ -167,8 +168,12 @@ export default function UniversityStatic({
                 ]}
                 button={{
                   label: "Apply Now",
-                  onClick: (item: IIntake) =>
-                    (window.location.href = `/apply/${slug}/${item.name}`),
+                  onClick: (item: IIntake) => {
+                    const programSlug = item.program?.slug;
+                    if (programSlug && item.id) {
+                      router.push(`${routes.form}/${programSlug}/${item.id}`);
+                    }
+                  },
                   variant: "secondary",
                   size: "sm",
                   disabled: (item) =>

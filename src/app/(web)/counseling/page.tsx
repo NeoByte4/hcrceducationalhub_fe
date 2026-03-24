@@ -37,33 +37,36 @@ query GetCounseling {
     overview
     subtitle
     targetAudience
-   counseling_video {id}
-   counseling_image {
-       directus_files_id { id filename_download description }
-   }
+    counseling_video { id }
+    counseling_image {
+      directus_files_id { id filename_download description }
+    }
     inclusion
     exclusion
       steps {
       name
       overview
     }
-    notes
-      
+     notes
   }
-    intakes {
+  
+ 
+
+  intakes {
+  id
     name
     start_date
     seats_available
     end_date
     program {
-    name
-    slug
+      name
+      slug
     }
-    institutions{
-    name
-    slug
+    institutions {
+      name
+      slug
     }
-    }
+  }
 }
 `;
 const fetchCounseling = async () => {
@@ -78,7 +81,7 @@ const fetchCounseling = async () => {
       console.error("GraphQL error details:", response.data.errors);
       return null;
     }
-    console.log("FULL DATA:", response.data.data);
+
     return response.data.data;
   } catch (error) {
     console.error("Axios fetch error:", error);
