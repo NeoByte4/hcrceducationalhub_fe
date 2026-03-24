@@ -19,7 +19,7 @@ const InclusionsExclusionsSection: React.FC<props> = ({
         <div className="bg-bg rounded-lg px-5 py-4 text-text-secondary">
           <h3 className="text-2xl font-bold flex items-center gap-2 font-secondary mb-2 text-text-primary">
             <DiamondPlus size={24} className="text-primary-dark" />
-            Inclusions
+            Requirement document
           </h3>
 
           {inclusions && inclusions.length > 0 ? (
@@ -36,7 +36,7 @@ const InclusionsExclusionsSection: React.FC<props> = ({
         <div className="bg-bg rounded-lg px-5 py-4 text-text-secondary">
           <h3 className="text-2xl font-bold flex items-center gap-2 font-secondary mb-2 text-text-primary">
             <DiamondMinus size={24} className="text-primary-dark" />
-            Exclusions
+            Why chose us
           </h3>
 
           {exclusions && exclusions.length > 0 ? (

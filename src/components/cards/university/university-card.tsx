@@ -97,27 +97,6 @@ const UniversityCard: React.FC<Props> = ({
           )}
         </div>
 
-        <div className="grid grid-cols-2 border-y border-y-primary-dark border-dashed items-center">
-          <div className="p-3 border-r border-r-primary-dark border-dashed">
-            <p className="font-semibold">{} 34 Days </p>
-            <div className="flex items-center flex-wrap gap-1 text-text-secondary mt-2">
-              kkkk
-            </div>
-          </div>
-          <div className="border-l border-l-primary-dark border-dashed p-3 pl-3">
-            <p className="text-text-secondary text-xs capitalize">From</p>
-            <p>
-              <span className="inline-block font-bold font-secondary text-xl text-primary-dark">
-                2444 ff
-              </span>
-
-              <span className="inline-block text-text-secondary line-through font-semibold text-sm ml-1">
-                34
-              </span>
-            </p>
-            <p className="text-text-secondary text-xs capitalize">per/psn</p>
-          </div>
-        </div>
         <Link
           aria-label={`View details for ${name}`}
           href={`${routes.university}/${slug}`}

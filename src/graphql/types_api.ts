@@ -309,3 +309,19 @@ export interface IFaq {
   question: string;
   answer: string;
 }
+export interface IApplication_Step {
+  title?: string;
+  overview?: string;
+  counseling?: ICounseling;
+}
+
+export interface IApplicationPage {
+  name: string;
+  subtitle?: string;
+  images: SlideshowItem[];
+  overview?: string;
+  what_we_offer?: string[];
+  application_step?: IApplication_Step[];
+  requirement_document?: string[];
+  why_choose_us?: string[];
+}
