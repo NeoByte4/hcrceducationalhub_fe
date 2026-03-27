@@ -5,21 +5,21 @@ import Link from "next/link";
 import StyledButton from "@/components/ui/styled-button";
 import { routes } from "@/lib/routes";
 import HeadingText from "@/components/ui/heading-text";
-import { IBlog_MINIMAL } from "@/src/graphql/types_api";
+import { IBlog } from "@/src/graphql/types_api";
 import { getAssetUrl } from "@/src/utils/getAssetUrl";
 import { MONTHS_SHORT } from "@/src/utils/months_data";
 
 interface props {
-  title: IBlog_MINIMAL["title"];
-  description: IBlog_MINIMAL["subtitle"];
-  image: IBlog_MINIMAL["images"];
-  date: IBlog_MINIMAL["date_created"];
-  readTime: IBlog_MINIMAL["readTime"];
+  title: IBlog["title"];
+  description: IBlog["subtitle"];
+  image: IBlog["images"];
+  date: IBlog["date_created"];
+  readTime: IBlog["readTime"];
   author: string;
   categories: string[];
-  slug: IBlog_MINIMAL["slug"];
-  data: IBlog_MINIMAL["blog_content"];
-  video: IBlog_MINIMAL["video"];
+  slug: IBlog["slug"];
+  data: IBlog["blog_content"];
+  video: IBlog["video"];
 }
 
 const ArticleCard = ({

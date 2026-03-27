@@ -26,7 +26,7 @@ export const studyAbroadProcess = {
       title: "Fly Abroad",
       subtitle: "Pack your bags and begin your global education.",
       icon: "Plane",
-      route: "/fly",
+      route: "/",
     },
   ],
 };

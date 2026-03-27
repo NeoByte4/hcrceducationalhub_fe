@@ -292,13 +292,14 @@ export interface IDestination_MINIMAL {
    6. BLOG & FAQ
 ===================================================== */
 
-export interface IBlog_MINIMAL {
+export interface IBlog {
   title: string;
   slug: string;
   subtitle?: string;
   overview: string;
   blog_content: string;
   images: InstitutionImage[];
+  categories: string;
   video?: IAsset;
   date?: string;
   readTime?: string;

@@ -10,7 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { IBlog_MINIMAL } from "@/src/graphql/types_api";
+import { IBlog } from "@/src/graphql/types_api";
 import ContainerLayout from "../../layouts/container-layout";
 import TitleContentBlock from "../../contents/title-content-block";
 import ArticleCard from "../../cards/blogs/blogs-card";
@@ -19,7 +19,7 @@ interface props {
   subtitle?: string;
   title: string;
   description: string;
-  data: IBlog_MINIMAL[];
+  data: IBlog[];
 }
 
 const LatestArticleSection: React.FC<props> = ({

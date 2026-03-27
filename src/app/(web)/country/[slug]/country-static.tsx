@@ -6,7 +6,7 @@ import {
   IRequirements_data,
 } from "@/src/graphql/types_api";
 import React, { useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Share2 } from "lucide-react";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import FaqSection from "@/src/components/sections/question/faq-section";
+import CopyToClipboard from "@/src/components/utils/copy-to-clipboard";
+import { siteDetails } from "@/src/data/sit-details";
+import { newsShareLinks } from "@/src/data/newsShareLinks";
 
 interface props {
   tab: string;
@@ -80,8 +83,7 @@ export default function CountryStatic({
   requirements_data,
   information_video,
 }: props) {
-  
-
+  const currentUrl = `${siteDetails.SITE_URL}${routes.country}/${slug}`;
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeTab, setActiveTab] = useState(
     tabs.some((t) => t.key === tab) ? tab : "overview",
@@ -327,14 +329,24 @@ export default function CountryStatic({
           <div className="flex-1 h-full gap-2 flex flex-wrap items-center justify-center md:justify-start p-2">
             {renderTabs()}
           </div>
-
           <div className="hidden lg:flex gap-4 items-center px-6 justify-center">
-            <Link href={routes.contact}>
-              <Button size="lg">
-                Contact us
-                <ArrowUpRight />
-              </Button>
-            </Link>
+            {newsShareLinks.map((social) => (
+              <Link
+                key={social.name}
+                href={social.getUrl(currentUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white transition-all"
+              >
+                <social.icon size={18} />
+              </Link>
+            ))}
+
+            <CopyToClipboard text={currentUrl}>
+              <p className="text-white transition-all cursor-pointer">
+                <Share2 size={18} />
+              </p>
+            </CopyToClipboard>
           </div>
         </section>
       </HeroSection>

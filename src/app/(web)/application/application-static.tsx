@@ -14,6 +14,9 @@ import HeroSection from "@/src/components/sections/hero-section";
 import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
 import GenericTable from "@/src/components/sections/packages/GenericTable";
 import SidebarContactForm from "@/src/components/sidebar/sidebar-contact-form";
+import CopyToClipboard from "@/src/components/utils/copy-to-clipboard";
+import { newsShareLinks } from "@/src/data/newsShareLinks";
+import { siteDetails } from "@/src/data/sit-details";
 import {
   IApplication_Step,
   IApplicationPage,
@@ -22,7 +25,7 @@ import {
   IIntake,
 } from "@/src/graphql/types_api";
 import { getAssetUrl } from "@/src/utils/getAssetUrl";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -56,6 +59,7 @@ export default function ApplicationPageStatic({
   country,
   intakes,
 }: props) {
+  const currentUrl = `${siteDetails.SITE_URL}${routes.application}`;
   const hasImages = images && images.length > 0;
   const imageUrls = images?.map((img) =>
     typeof img.directus_files_id === "object"
@@ -80,12 +84,23 @@ export default function ApplicationPageStatic({
               </span>
             </div>
             <div className="hidden lg:flex gap-4 items-center px-6 justify-center">
-              <Link href={routes.contact}>
-                <Button size={"lg"} className="text-base ">
-                  Apply Form
-                  <ArrowUpRight />
-                </Button>
-              </Link>
+              {newsShareLinks.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.getUrl(currentUrl)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white transition-all"
+                >
+                  <social.icon size={18} />
+                </Link>
+              ))}
+
+              <CopyToClipboard text={currentUrl}>
+                <p className="text-white transition-all cursor-pointer">
+                  <Share2 size={18} />
+                </p>
+              </CopyToClipboard>
             </div>
           </div>
         </section>

@@ -17,7 +17,7 @@ import FaqSection from "@/src/components/sections/question/faq-section";
 import GenericTable from "@/src/components/sections/packages/GenericTable";
 import HeroSection from "@/src/components/sections/hero-section";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Share2 } from "lucide-react";
 import Link from "next/link";
 import SpacingLayout from "@/src/components/layouts/spacing-layout";
 import TwoColumnLayout from "@/src/components/layouts/two-column-layout";
@@ -27,6 +27,9 @@ import { shouldRenderSection } from "@/src/utils/should-render-section";
 import ContainerLayout from "@/src/components/layouts/container-layout";
 import { routes } from "@/lib/routes";
 import { useRouter } from "next/navigation";
+import CopyToClipboard from "@/src/components/utils/copy-to-clipboard";
+import { newsShareLinks } from "@/src/data/newsShareLinks";
+import { siteDetails } from "@/src/data/sit-details";
 
 interface Props {
   tab?: string;
@@ -67,6 +70,7 @@ export default function ProgramStatic({
   images,
   information_video,
 }: Props): JSX.Element {
+  const currentUrl = `${siteDetails.SITE_URL}${routes.program}/${slug}`;
   const router = useRouter();
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [activeTab, setActiveTab] = useState(
@@ -308,11 +312,23 @@ export default function ProgramStatic({
             {renderTabs()}
           </div>
           <div className="hidden lg:flex gap-4 items-center px-6 justify-center">
-            <Link href="/contact">
-              <Button size="lg">
-                Contact us <ArrowUpRight />
-              </Button>
-            </Link>
+            {newsShareLinks.map((social) => (
+              <Link
+                key={social.name}
+                href={social.getUrl(currentUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white transition-all"
+              >
+                <social.icon size={18} />
+              </Link>
+            ))}
+
+            <CopyToClipboard text={currentUrl}>
+              <p className="text-white transition-all cursor-pointer">
+                <Share2 size={18} />
+              </p>
+            </CopyToClipboard>
           </div>
         </section>
       </HeroSection>
