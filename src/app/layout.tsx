@@ -2,6 +2,7 @@ import { Figtree, Poppins } from "next/font/google";
 import { Metadata } from "next";
 import "./css/globals.css";
 import Header from "../components/global/header";
+import Footer from "../components/global/footer";
 
 const poppins = Poppins({
   variable: "--font-primary",
@@ -103,6 +104,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
