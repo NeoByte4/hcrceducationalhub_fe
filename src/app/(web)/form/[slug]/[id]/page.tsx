@@ -128,8 +128,10 @@ const Page = async ({
       <HeroSection
         height="small"
         image={program.images?.[0]?.directus_files_id}
-        title={"Booking"}
-        subtitle="Start Your Getaway"
+        title={"Apply Now"}
+        description={
+          "Ready to move forward? Submit your application today and let us help you achieve your academic goals."
+        }
       />
       <div className="my-10"></div>
       <ProgramBookingStatic program={program} intakeId={intake?.id ?? ""} />

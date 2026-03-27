@@ -14,9 +14,8 @@ import InclusionsExclusionsSection from "@/src/components/sections/counseling/co
 import HeroSection from "@/src/components/sections/hero-section";
 import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
 import GenericTable from "@/src/components/sections/packages/GenericTable";
-import SiteReviewSection from "@/src/components/sections/reviews/site-reviews-seciton";
 import SidebarContactForm from "@/src/components/sidebar/sidebar-contact-form";
-import { ICounseling, IIntake } from "@/src/graphql/types_api";
+import { IIntake, IVisaPageData } from "@/src/graphql/types_api";
 import { getAssetUrl } from "@/src/utils/getAssetUrl";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
@@ -24,46 +23,42 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface props {
-  name: ICounseling["name"];
-  subtitle: ICounseling["subtitle"];
-  targetAudience: ICounseling["targetAudience"];
-  counseling_video: ICounseling["counseling_video"];
-  counseling_image: ICounseling["counseling_image"];
-  inclusion: ICounseling["inclusion"];
-  exclusion: ICounseling["exclusion"];
-  steps: ICounseling["steps"];
-  notes: ICounseling["notes"];
-  overview: ICounseling["overview"];
-  intakes: IIntake[];
+  title: IVisaPageData["title"];
+  subtitle: IVisaPageData["subtitle"];
+  overview: IVisaPageData["overview"];
+  visa_steps: IVisaPageData["visa_steps"];
+  exams?: IVisaPageData["exams"];
+  features?: IVisaPageData["features"];
+  scholarship?: IVisaPageData["scholarship"];
+  class_types?: IVisaPageData["class_types"];
+  image?: IVisaPageData["image"];
+  notes?: IVisaPageData["notes"];
+  intakes?: IIntake[];
 }
-
-export default function CounselingStatic({
-  name,
+export default function VisaProcessStatic({
+  title,
   subtitle,
-  targetAudience,
-  counseling_video,
-  counseling_image,
-  inclusion,
-  exclusion,
-  steps,
-  notes,
   overview,
+  visa_steps,
+  exams,
+  features,
+  scholarship,
+  class_types,
+  image,
+  notes,
   intakes,
 }: props) {
-  const hasImages = counseling_image && counseling_image.length > 0;
-  const hasSteps = steps && steps.length > 0;
+  const hasImages = image && image.length > 0;
+  const firstImage = hasImages ? getAssetUrl(image[0].directus_files_id) : null;
+  const hasSteps = visa_steps && visa_steps.length > 0;
   const router = useRouter();
-  const firstImage = hasImages
-    ? getAssetUrl(counseling_image[0].directus_files_id)
-    : null;
-
   return (
     <>
       <HeroSection
         height="medium"
-        slideshowImages={hasImages ? counseling_image : undefined}
+        slideshowImages={hasImages ? image : undefined}
         description={subtitle}
-        title={name}
+        title={title}
       >
         <section className="absolute z-50 w-full h-20 bottom-0 bg-black/30 backdrop-blur-sm rounded-lg overflow-hidden">
           <div className="h-full flex items-center justify-between">
@@ -81,20 +76,29 @@ export default function CounselingStatic({
           </div>
         </section>
       </HeroSection>
-
       <SpacingLayout>
         <TwoColumnLayout className="mt-10" sidebar={<SidebarContactForm />}>
           <ContentSection
-            title="Counseling Overview"
-            text={name}
+            title="Visa Process Overview"
+            text={title}
             htmlContent={overview}
           />
 
-          {targetAudience && targetAudience.length > 0 && (
+          {scholarship && scholarship.length > 0 && (
             <>
-              <SubHeadingText className="mb-4">Target Audience</SubHeadingText>
+              <SubHeadingText className="mb-4"> scholarship </SubHeadingText>
               <ul className="list-disc">
-                {targetAudience.map((target, index) => (
+                {scholarship.map((target, index) => (
+                  <li key={index}>{target}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          {exams && exams.length > 0 && (
+            <>
+              <SubHeadingText className="mt-4"> exams </SubHeadingText>
+              <ul className="list-disc">
+                {exams.map((target, index) => (
                   <li key={index}>{target}</li>
                 ))}
               </ul>
@@ -112,7 +116,7 @@ export default function CounselingStatic({
                   src={firstImage.src}
                   width={500}
                   height={500}
-                  alt={firstImage.alt ?? `Counseling image for ${name}`}
+                  alt={firstImage.alt ?? `Counseling image for ${title}`}
                   className="w-full h-full object-cover bg-center"
                   quality={75}
                 />
@@ -124,17 +128,20 @@ export default function CounselingStatic({
       >
         <div className="md:max-w-3xl mb-8">
           <TitleContentBlock
-            name="Counseling Steps"
-            overview="A step-by-step process to guide you through your study abroad journey, from initial discussion to flying abroad."
+            name="Visa Process Steps"
+            overview={
+              overview ||
+              "Learn the complete visa process from application to approval with expert guidance."
+            }
           />
         </div>
 
         {hasSteps ? (
           <>
             <Timeline
-              items={steps.map((step) => ({
-                title: step.name ?? "",
-                description: step.overview ?? "",
+              items={visa_steps.map((step) => ({
+                title: step.title ?? "",
+                description: step.description ?? "",
               }))}
             />
             {notes && (
@@ -148,10 +155,10 @@ export default function CounselingStatic({
           <ErrorTextSection item="Steps" parent="counseling" />
         )}
       </TwoColumnLayout>
-      {inclusion && exclusion && (
+      {features && scholarship && (
         <InclusionsExclusionsSection
-          inclusions={inclusion}
-          exclusions={exclusion}
+          inclusions={features}
+          exclusions={class_types}
         />
       )}
       <ContainerLayout>
@@ -194,8 +201,6 @@ export default function CounselingStatic({
           </div>
         )}
       </ContainerLayout>
-
-      <SiteReviewSection />
       <NewsletterSection />
     </>
   );

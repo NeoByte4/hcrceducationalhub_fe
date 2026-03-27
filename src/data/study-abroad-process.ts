@@ -19,7 +19,7 @@ export const studyAbroadProcess = {
       title: "Visa Processing",
       subtitle: "We help you prepare and submit your visa application.",
       icon: "IdCard",
-      route: "/visa",
+      route: "/visa_proces",
     },
     {
       slug: "fly-abroad",

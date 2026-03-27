@@ -11,4 +11,5 @@ export const routes = {
   counseling: "/counseling",
   application: "/application",
   form: "/form",
+  visaProcess: "/visa_proces",
 };

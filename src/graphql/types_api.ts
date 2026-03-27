@@ -327,3 +327,21 @@ export interface IApplicationPage {
   requirement_document?: string[];
   why_choose_us?: string[];
 }
+
+export interface IVisa_steps {
+  title?: string;
+  description?: string;
+}
+
+export interface IVisaPageData {
+  title: string;
+  subtitle?: string;
+  overview?: string;
+  visa_steps?: IVisa_steps[];
+  exams?: string[];
+  features?: string[];
+  scholarship: string[];
+  class_types: string[];
+  image?: SlideshowItem[];
+  notes?: string;
+}

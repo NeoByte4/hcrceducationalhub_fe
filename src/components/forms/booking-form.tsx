@@ -87,7 +87,6 @@ export default function ApplicationFormClient({
       intakeEndDate: intake.end_date,
     };
 
-    console.log("Submitting:", submissionData);
     setIsSubmitting(false);
     setIsSuccess(true);
     setIsDialogOpen(false);
