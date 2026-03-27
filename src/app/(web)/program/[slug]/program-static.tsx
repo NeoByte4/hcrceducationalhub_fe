@@ -16,8 +16,7 @@ import {
 import FaqSection from "@/src/components/sections/question/faq-section";
 import GenericTable from "@/src/components/sections/packages/GenericTable";
 import HeroSection from "@/src/components/sections/hero-section";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Share2 } from "lucide-react";
+import { Share2 } from "lucide-react";
 import Link from "next/link";
 import SpacingLayout from "@/src/components/layouts/spacing-layout";
 import TwoColumnLayout from "@/src/components/layouts/two-column-layout";

@@ -4,7 +4,6 @@ import { IInstitution, IProgram } from "@/src/graphql/types_api";
 import { getAssetUrl } from "@/src/utils/getAssetUrl";
 import Ribbon from "../../primitives/ribbon";
 import { routes } from "@/lib/routes";
-import IconText from "../../primitives/icon-text";
 import { ArrowUpRight, MapPin, Star } from "lucide-react";
 import HeadingText from "@/components/ui/heading-text";
 import { Button } from "@/components/ui/button";
@@ -35,114 +34,145 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
     rating = 2.4,
     institution,
   } = program;
+
   const shouldShowDiscount = discount != null && discount > 0;
   const mainImage = images?.[0]?.directus_files_id;
+
   const bgImage = mainImage
     ? getAssetUrl(mainImage)
     : { src: "/placeholder.jpg", alt: name };
 
   const DIRECTUS_URL = process.env.NEXT_PUBLIC_DIRECTUS_URL;
+
   const logoSrc = institution?.logo?.id
     ? `${DIRECTUS_URL}/assets/${institution.logo.id}`
     : logo?.id
       ? `${DIRECTUS_URL}/assets/${logo.id}`
       : "/placeholder.jpg";
 
+  const institutionName =
+    institution?.name || institution_name || "Institution";
+
   return (
-    <div className="bg-bg hover:bg-primary-dark/2 transition-all border rounded-lg p-2 relative flex flex-col h-full group/card">
-      <div className="w-full aspect-[1/0.65] max-h-72 relative">
-        {program_level && (
-          <span className="absolute inset-3 text-xs font-secondary text-primary-dark bg-bg rounded-xl w-fit h-fit px-3 py-1.5 font-semibold capitalize">
-            {program_level}
-          </span>
-        )}
-        {shouldShowDiscount && (
-          <Ribbon className="text-center">
-            <span className="text-[16px] text-white font-extrabold font-secondary">
-              {discount}%
-            </span>
-            <span className="block -mt-[5px] text-xs text-white font-medium">
-              off
-            </span>
-          </Ribbon>
-        )}
-        <Link href={`${routes.program}/${slug}`}>
+    <div className="group/card bg-white border border-border-first rounded-2xl overflow-hidden hover:border-primary-dark/30 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+      {/* Image Section */}
+      <div className="relative aspect-[16/9] overflow-hidden">
+        <Link href={`${routes.program}/${slug}`} className="block h-full">
           <Image
             src={bgImage.src}
             alt={bgImage.alt}
-            width={500}
-            height={500}
-            className="w-full h-full object-cover rounded-lg"
+            fill
+            className="object-cover group-hover/card:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <span className="sr-only">View details for {name}</span>
         </Link>
-        <Link href={`${routes.program}/${slug}`}></Link>
-      </div>
-      <div className="p-1 flex flex-col justify-between mt-px h-full">
-        <div className="">
-          <div className="flex items-center justify-between text-sm font-medium font-secondary my-2">
-            <div className="flex items-center gap-2">
-              <Image
-                src={logoSrc || logo?.id || "/placeholder.jpg"}
-                alt={institution?.name || "Institution Logo"}
-                width={30}
-                height={30}
-                className="w-7 h-7 rounded-sm object-cover"
-              />
 
-              {institution?.name || institution_name || "Institution Name"}
-            </div>
-            <IconText icon={Star} text={`${rating}`} />
+        {/* Level Badge */}
+        {program_level && (
+          <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-xs font-semibold text-primary-dark px-3.5 py-1.5 rounded-xl shadow-sm capitalize">
+            {program_level}
           </div>
-          <Link
-            href={`${routes.program}/${slug}`}
-            className="block w-fit hover:underline mb-2 hover:text-primary-dark"
-          >
-            <HeadingText level={6} heading={3}>
-              {name}
-            </HeadingText>
-            <span className="sr-only">View details for {name} program</span>
-          </Link>
-          {subtitle && (
-            <div
-              className="line-clamp-2 text-text-secondary mb-3 text-sm"
-              dangerouslySetInnerHTML={{ __html: subtitle }}
-            />
+        )}
+
+        {/* Discount Ribbon */}
+        {shouldShowDiscount && (
+          <Ribbon className="absolute top-4 right-4">
+            <span className="text-lg font-extrabold text-white tracking-tight">
+              {discount}%
+            </span>
+            <span className="block -mt-1 text-[10px] font-medium text-white/90">
+              OFF
+            </span>
+          </Ribbon>
+        )}
+      </div>
+
+      {/* Content Section */}
+      <div className="flex-1 p-5 flex flex-col">
+        {/* Institution Info + Rating */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg overflow-hidden border border-border-light flex-shrink-0">
+              <Image
+                src={logoSrc}
+                alt={institutionName}
+                width={36}
+                height={36}
+                className="object-cover"
+              />
+            </div>
+            <p className="text-sm font-medium text-text-secondary line-clamp-1">
+              {institutionName}
+            </p>
+          </div>
+
+          {rating && (
+            <div className="flex items-center gap-1 text-warning">
+              <Star className="w-4 h-4 fill-current" />
+              <span className="text-sm font-semibold text-text-primary">
+                {rating.toFixed(1)}
+              </span>
+            </div>
           )}
         </div>
 
-        <div className="">
-          <div className="grid grid-cols-2 border-y border-y-primary-dark border-dashed items-center">
-            <div className="p-3 border-r border-r-primary-dark border-dashed">
-              <p className="font-semibold">{duration} </p>
+        {/* Program Name */}
+        <Link
+          href={`${routes.program}/${slug}`}
+          className="block group-hover/card:text-primary-dark transition-colors"
+        >
+          <HeadingText
+            level={5}
+            className="line-clamp-2 leading-tight mb-2 text-text-primary"
+          >
+            {name}
+          </HeadingText>
+        </Link>
 
-              <div className=" flex item-center ">
-                <MapPin size={16} />
-                <p className="text-text-secondary text-xs capitalize">
-                  {location || "Location"}
-                </p>
-              </div>
-            </div>
+        {/* Subtitle */}
+        {subtitle && (
+          <div
+            className="text-sm text-text-secondary line-clamp-2 mb-5 rich_text_container"
+            dangerouslySetInnerHTML={{ __html: subtitle }}
+          />
+        )}
 
-            <div className="p-3 border-r border-r-primary-dark border-dashed">
-              <p className="font-semibold">{program_level}</p>
-              <div className="flex items-center flex-wrap gap-1 text-text-secondary mt-2">
-                {credits_hours && (
-                  <span className="text-xs">{credits_hours} Credits</span>
-                )}
-              </div>
+        {/* Meta Information */}
+        <div className="mt-auto grid grid-cols-2 gap-4 text-sm pt-4 border-t border-divider">
+          <div>
+            <p className="font-semibold text-text-primary">
+              {duration || "N/A"}
+            </p>
+            <div className="flex items-center gap-1.5 text-text-disabled text-xs mt-1">
+              <MapPin className="w-3.5 h-3.5" />
+              <span className="capitalize line-clamp-1">
+                {location || "Location not specified"}
+              </span>
             </div>
           </div>
-          <Link
-            aria-label={`View details for ${name} program`}
-            href={`${routes.program}/${slug}`}
-            className="block mt-4"
-          >
-            <Button className="w-full">
-              View Program <ArrowUpRight />
-            </Button>
-          </Link>
+
+          <div>
+            <p className="font-semibold text-text-primary capitalize">
+              {program_level || "Program"}
+            </p>
+            {credits_hours && (
+              <p className="text-xs text-text-disabled mt-1">
+                {credits_hours} Credits
+              </p>
+            )}
+          </div>
         </div>
+
+        <Link
+          href={`${routes.program}/${slug}`}
+          className="mt-6 block"
+          aria-label={`View details for ${name} program`}
+        >
+          <Button className="w-full bg-bg-btn hover:bg-primary-dark transition-colors">
+            View Program
+            <ArrowUpRight className="ml-2 w-4 h-4 transition-transform group-hover/card:translate-x-0.5" />
+          </Button>
+        </Link>
       </div>
     </div>
   );
