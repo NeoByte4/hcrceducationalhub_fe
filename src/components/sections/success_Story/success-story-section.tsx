@@ -36,8 +36,8 @@ const SuccessStorySection: React.FC<Props> = ({ data }) => {
             />
 
             <div className="flex items-end justify-end">
-              <Link href={routes.course}>
-                <StyledButton>View All Courses</StyledButton>
+              <Link href={routes.successStory}>
+                <StyledButton>View All Testimonials</StyledButton>
               </Link>
             </div>
           </div>
@@ -52,7 +52,6 @@ const SuccessStorySection: React.FC<Props> = ({ data }) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-
             <CarouselPrevious className="!absolute -left-10 top-1/2 -translate-y-1/2 z-20" />
             <CarouselNext className="!absolute -right-10 top-1/2 -translate-y-1/2 z-20" />
           </div>

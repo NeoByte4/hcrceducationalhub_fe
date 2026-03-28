@@ -2,17 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAssetUrl } from "@/src/utils/getAssetUrl";
 import HeadingText from "@/components/ui/heading-text";
-import StyledButton from "@/components/ui/styled-button";
-import HighlightText from "@/components/ui/highlite-text";
+import { Button } from "@/components/ui/button";
 import { ISuccessStory } from "@/src/graphql/types_api";
 import { routes } from "@/lib/routes";
-import { GraduationCap, MapPin, Star } from "lucide-react";
+import {
+  GraduationCap,
+  MapPin,
+  BookOpen,
+  Calendar,
+  ArrowUpRight,
+  Star,
+} from "lucide-react";
 
-interface Props {
+interface SuccessStoryCardProps {
   story: ISuccessStory;
+  className?: string;
 }
 
-const SuccessStoryCard: React.FC<Props> = ({ story }) => {
+const SuccessStoryCard: React.FC<SuccessStoryCardProps> = ({
+  story,
+  className = "",
+}) => {
   const {
     student_name,
     slug,
@@ -25,76 +35,110 @@ const SuccessStoryCard: React.FC<Props> = ({ story }) => {
   } = story;
 
   const mainImage = image?.[0]?.directus_files_id;
-  const bgImage = mainImage
-    ? getAssetUrl(mainImage)
-    : { src: "/placeholder.jpg", alt: `Photo of ${student_name}` };
+  const bgImage = getAssetUrl(mainImage);
 
   return (
-    <div className="relative rounded-lg overflow-hidden w-full aspect-square h-full group/card">
-      <Image
-        width={450}
-        height={450}
-        src={bgImage.src}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105"
-        alt={bgImage.alt ?? `Photo of ${student_name}`}
-      />
+    <div
+      className={`group/card bg-white border border-border-first rounded-2xl overflow-hidden hover:border-primary-dark/30 hover:shadow-xl transition-all duration-300 flex flex-col h-full ${className}`}
+    >
+      <div className="relative aspect-[16/9] overflow-hidden">
+        <Link href={`${routes.successStory}/${slug}`} className="block h-full">
+          <Image
+            src={bgImage.src}
+            alt={bgImage.alt || student_name || "Success story"}
+            fill
+            className="object-cover group-hover/card:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </Link>
 
-      <Image
-        width={450}
-        height={450}
-        src={bgImage.src}
-        className="w-full h-full object-cover blur-sm absolute inset-0 opacity-40"
-        alt=""
-        aria-hidden="true"
-      />
-
-      {score && score !== "N/A" && (
-        <div className="absolute top-4 right-4 z-20">
-          <HighlightText>
-            <Star size={12} className="inline mr-1" />
+        {score && (
+          <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-xs font-semibold text-primary-dark px-3.5 py-1.5 rounded-xl shadow-sm capitalize">
             {score}
-          </HighlightText>
-        </div>
-      )}
-
-      {admission_year && (
-        <div className="absolute top-4 left-4 z-20">
-          <HighlightText>{admission_year}</HighlightText>
-        </div>
-      )}
-
-      <div className="absolute inset-0 bg-black/30 p-3 flex flex-col justify-end">
-        <div className="h-fit bg-black/30 backdrop-blur-xl transition-all rounded-lg p-2">
-          <HeadingText level={0} heading={3} className="text-bg mb-2">
-            {student_name}
-          </HeadingText>
-
-          <div className="flex items-center gap-1 text-primary-foreground/85 text-sm mb-1">
-            <GraduationCap size={14} className="shrink-0" />
-            <span className="line-clamp-1">{university}</span>
           </div>
+        )}
 
-          <div className="flex items-center gap-1 text-primary-foreground/85 text-sm mb-1">
-            <MapPin size={14} className="shrink-0" />
-            <span>{country}</span>
+        {admission_year && (
+          <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm flex items-center gap-1.5 text-xs font-medium text-text-secondary px-3 py-1.5 rounded-xl shadow-sm">
+            <Calendar className="w-3.5 h-3.5" />
+            <span>Class of {admission_year}</span>
           </div>
+        )}
+      </div>
 
-          {course_taken && (
-            <p className="text-primary-foreground/70 text-xs mt-1 italic line-clamp-1">
-              {course_taken}
-            </p>
-          )}
-
-          <div className="flex justify-end mt-4">
-            <Link
-              href={`${routes.successStory}/${slug}`}
-              aria-label={`Read ${student_name}'s success story`}
-              className="z-10"
+      <div className="flex-1 p-5 flex flex-col">
+        <div className="flex items-center justify-between mb-4">
+          <Link
+            href={`${routes.successStory}/${slug}`}
+            className="block group-hover/card:text-primary-dark transition-colors"
+          >
+            <HeadingText
+              level={5}
+              className="line-clamp-1 leading-tight text-text-primary"
             >
-              <StyledButton variant="secondary">Read Story</StyledButton>
-            </Link>
+              {student_name || "Student"}
+            </HeadingText>
+          </Link>
+
+          {score && (
+            <div className="flex items-center gap-1 text-warning">
+              <Star className="w-4 h-4 fill-current" />
+              <span className="text-sm font-semibold text-text-primary">
+                {score}
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-start gap-2 text-text-secondary text-sm mb-2">
+          <GraduationCap className="w-4 h-4 text-text-disabled shrink-0 mt-0.5" />
+          <span className="line-clamp-1">
+            {university || "University not specified"}
+          </span>
+        </div>
+
+        {course_taken && (
+          <div className="flex items-start gap-2 text-text-secondary text-sm mb-5">
+            <BookOpen className="w-4 h-4 text-text-disabled shrink-0 mt-0.5" />
+            <span className="line-clamp-2 italic">{course_taken}</span>
+          </div>
+        )}
+
+        <div className="mt-auto grid grid-cols-2 gap-4 text-sm pt-4 border-t border-divider">
+          <div>
+            <p className="font-semibold text-text-primary capitalize">
+              {university || "University"}
+            </p>
+            <div className="flex items-center gap-1.5 text-text-disabled text-xs mt-1">
+              <MapPin className="w-3.5 h-3.5" />
+              <span className="capitalize line-clamp-1">
+                {country || "Location not specified"}
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <p className="font-semibold text-text-primary">
+              {admission_year ? `Class of ${admission_year}` : "Year N/A"}
+            </p>
+            {course_taken && (
+              <p className="text-xs text-text-disabled mt-1 line-clamp-1">
+                {course_taken}
+              </p>
+            )}
           </div>
         </div>
+
+        <Link
+          href={`${routes.successStory}/${slug}`}
+          className="mt-6 block"
+          aria-label={`Read success story of ${student_name}`}
+        >
+          <Button className="w-full bg-bg-btn hover:bg-primary-dark transition-colors">
+            Read Story
+            <ArrowUpRight className="ml-2 w-4 h-4 transition-transform group-hover/card:translate-x-0.5" />
+          </Button>
+        </Link>
       </div>
     </div>
   );

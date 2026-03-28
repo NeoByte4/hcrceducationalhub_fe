@@ -20,8 +20,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 const defaultMetaData = {
-  meta_title: `Study Abroad Blogs | Tips, Guides & Updates - ${siteDetails.site_title}`,
-  meta_description: `Read expert blogs from ${siteDetails.site_title} about studying abroad. Get updates on university applications, visa processes, scholarships, intakes, and guidance for international students.`,
+  meta_title: `Educational Counselor | ${siteDetails.site_title} `,
+  meta_description: `Get expert educational counseling from ${siteDetails.site_title}. We help students choose the right country, university, course, and guide them through the complete study abroad process.`,
 };
 
 export const generateMetadata = async (): Promise<Metadata> => {
