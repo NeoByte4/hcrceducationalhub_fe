@@ -80,7 +80,7 @@ const CourseCard = ({
           </p>
 
           <ul className="mt-3 space-y-1">
-            {highlights?.slice(0, 2).map((item, i) => (
+            {highlights?.slice(0, 4).map((item, i) => (
               <li
                 key={i}
                 className="text-sm text-text-secondary flex items-center gap-2"

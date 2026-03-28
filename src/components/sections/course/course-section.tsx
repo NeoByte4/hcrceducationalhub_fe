@@ -46,7 +46,7 @@ const LatestCourseSection: React.FC<Props> = ({
           />
 
           <div className="flex items-end justify-end gap-3 relative">
-            <Link href={routes.blog}>
+            <Link href={routes.course}>
               <StyledButton>View All Course</StyledButton>
             </Link>
 

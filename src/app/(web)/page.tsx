@@ -148,7 +148,7 @@ const Homepage = async () => {
 
   const heroPage = hero_page[0] ?? {};
   const { title = "", video } = heroPage;
-  console.log(course);
+
   return (
     <>
       <HeroSection
