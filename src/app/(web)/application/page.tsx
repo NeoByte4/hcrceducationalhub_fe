@@ -1,14 +1,97 @@
-import { routes } from "@/lib/routes";
-import { axiosDataInstance } from "@/src/axios/axios";
-import { siteDetails } from "@/src/data/sit-details";
 import { Metadata } from "next";
-import React from "react";
+import { notFound } from "next/navigation";
+import { routes } from "@/lib/routes";
+import { siteDetails } from "@/src/data/sit-details";
+import { axiosDataInstance } from "@/src/axios/axios";
 import ApplicationPageStatic from "./application-static";
-export async function generateMetadata(): Promise<Metadata> {
-  const meta_title = "Study Abroad Counseling | HCRC Education";
-  const meta_description =
-    "Get expert guidance from HCRC Education for studying abroad. Learn about upcoming intakes, application processes, visa support, and personalized counseling.";
 
+// ─── GraphQL Query ────────────────────────────────────────────────────────────
+
+const APPLICATION_FULL = `
+  query GetApplicationPage {
+    application {
+      name
+      subtitle
+      overview
+      what_we_offer
+      application_step {
+        title
+        overview
+      }
+      requirement_document
+      why_choose_us
+      images {
+        directus_files_id {
+          id
+          filename_download
+          description
+        }
+      }
+    }
+    institutions {
+      name
+      slug
+      logo {
+        id
+      }
+    }
+    countries {
+      name
+      slug
+      images {
+        directus_files_id {
+          id
+          filename_download
+          description
+        }
+      }
+    }
+    intakes {
+      id
+      name
+      start_date
+      seats_available
+      end_date
+      program {
+        name
+        slug
+      }
+      institutions {
+        name
+        slug
+      }
+    }
+  }
+`;
+
+// ─── Fetch ────────────────────────────────────────────────────────────────────
+
+async function fetchApplicationPage() {
+  try {
+    const response = await axiosDataInstance.post("/graphql", {
+      query: APPLICATION_FULL,
+    });
+
+    if (response.data.errors) {
+      console.error("GraphQL errors:", response.data.errors);
+      return null;
+    }
+
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching application page:", error);
+    return null;
+  }
+}
+
+// ─── Metadata ─────────────────────────────────────────────────────────────────
+
+export async function generateMetadata(): Promise<Metadata> {
+  const meta_title =
+    "Study Abroad Application Process Guide | HCRC Educational Hub";
+
+  const meta_description =
+    "Step-by-step guide to apply to top universities abroad with HCRC Educational Hub. Learn the full application process, required documents, intake dates, visa support, and expert counseling for international students.";
   return {
     title: meta_title,
     description: meta_description,
@@ -28,104 +111,30 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
-const DESTINATION_FULL = `
-query GetApplicationPage {
-  application {
-    name
-    subtitle
-    overview
-    what_we_offer
-    application_step{
-       title
-      overview
-    }
-    requirement_document
-    why_choose_us
-    images {           
-      directus_files_id {
-        id
-        filename_download
-        description
-      }
-    }
-  }
-  institutions {
-    name
-    slug
-    logo {
-      id
-    }
-  } 
-  countries {
-    name
-    slug
-    images {           
-      directus_files_id {
-        id
-        filename_download
-        description
-      }
-    }
-  }
-      intakes {
-    id
-    name
-    start_date
-    seats_available
-    end_date
-    program {
-    name
-    slug
-    }
-    institutions{
-    name
-    slug
-    }
-    }
-}`;
-const fetchCounseling = async () => {
-  try {
-    const response = await axiosDataInstance.post(
-      "/graphql",
-      { query: DESTINATION_FULL },
-      { headers: { "Content-Type": "application/json" } },
-    );
 
-    if (response.data.errors) {
-      console.error("GraphQL errors:", response.data.errors);
-      return null;
-    }
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
-    return response.data.data;
-  } catch (error) {
-    console.error("Axios fetch error:", error);
-    return null;
-  }
-};
+export default async function Page() {
+  const data = await fetchApplicationPage();
 
-const Page = async () => {
-  const data = await fetchCounseling();
-  if (!data) return <p>Failed to load application data.</p>;
+  if (!data) notFound();
+
   const appData = data.application[0];
 
   return (
-    <>
-      <ApplicationPageStatic
-        name={appData.name}
-        subtitle={appData.subtitle}
-        overview={appData.overview}
-        what_we_offer={appData.what_we_offer}
-        application_step={appData.application_step}
-        requirement_document={appData.requirement_document}
-        why_choose_us={appData.why_choose_us}
-        images={appData.images || []}
-        institutions={data.institutions || []}
-        countries={data.countries || []}
-        country={data.countries}
-        intakes={data.intakes || []}
-      />
-    </>
+    <ApplicationPageStatic
+      name={appData.name}
+      subtitle={appData.subtitle}
+      overview={appData.overview}
+      what_we_offer={appData.what_we_offer}
+      application_step={appData.application_step}
+      requirement_document={appData.requirement_document}
+      why_choose_us={appData.why_choose_us}
+      images={appData.images ?? []}
+      institutions={data.institutions ?? []}
+      countries={data.countries ?? []}
+      country={data.countries}
+      intakes={data.intakes ?? []}
+    />
   );
-};
-
-export default Page;
+}

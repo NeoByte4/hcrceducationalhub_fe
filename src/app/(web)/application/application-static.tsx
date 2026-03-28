@@ -108,7 +108,7 @@ export default function ApplicationPageStatic({
       <SpacingLayout>
         <TwoColumnLayout className="mt-10" sidebar={<SidebarContactForm />}>
           <ContentSection
-            title="Counseling Overview"
+            title="Apply to top universities "
             text={name}
             htmlContent={overview}
           />
