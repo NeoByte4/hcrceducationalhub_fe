@@ -360,3 +360,18 @@ export interface ICourse {
   video?: IAsset;
   discound?: string;
 }
+
+export interface ISuccessStory {
+  student_name?: string;
+  slug: string;
+  country: string;
+  university: string;
+  course_taken?: string;
+  score?: string;
+  story: string;
+  image: SlideshowItem[];
+  testimonial_video?: IAsset;
+  admission_year?: string;
+  student_testimonial_message?: string;
+  overview?: string;
+}

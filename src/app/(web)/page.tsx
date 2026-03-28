@@ -15,6 +15,7 @@ import LatestArticleSection from "@/src/components/sections/article/latest-artic
 import SiteReviewSection from "@/src/components/sections/reviews/site-reviews-seciton";
 import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
 import LatestCourseSection from "@/src/components/sections/course/course-section";
+import SuccessStorySection from "@/src/components/sections/success_Story/success-story-section";
 
 const HERO_QUERY = `
 query {
@@ -121,6 +122,22 @@ query {
       }
   }
   }
+  success_story{
+  student_name 
+  slug 
+  country 
+  university 
+  course_taken 
+  score
+  admission_year
+  image {
+    directus_files_id {
+        id
+        filename_download
+        description
+      }
+  }
+  }
 }
 `;
 
@@ -144,6 +161,7 @@ const Homepage = async () => {
     admissionOpenPrograms = [],
     blog: blogs = [],
     course = [],
+    success_story = [],
   } = data ?? {};
 
   const heroPage = hero_page[0] ?? {};
@@ -221,6 +239,9 @@ const Homepage = async () => {
         }
       />
 
+      {shouldRenderSection(success_story) && (
+        <SuccessStorySection data={success_story} />
+      )}
       <StudyAbroadProcess
         title="HCRC Guide to Studying Abroad"
         data={studyAbroadProcess.data}

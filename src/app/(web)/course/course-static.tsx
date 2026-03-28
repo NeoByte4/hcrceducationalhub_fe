@@ -42,7 +42,7 @@ export default function CourseStatic({
   resolvedSearchParams,
 }: Props) {
   const router = useRouter();
-  console.log(heroCourse);
+
   return (
     <>
       <HeroSection
