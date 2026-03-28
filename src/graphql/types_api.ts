@@ -346,3 +346,17 @@ export interface IVisaPageData {
   image?: SlideshowItem[];
   notes?: string;
 }
+
+export interface ICourse {
+  title?: string;
+  slug?: string;
+  description?: string;
+  banner_image?: SlideshowItem[];
+  highlights?: string[];
+  duration?: string;
+  level?: string;
+  fee?: string;
+  content?: string;
+  video?: IAsset;
+  discound?: string;
+}

@@ -12,4 +12,5 @@ export const routes = {
   application: "/application",
   form: "/form",
   visaProcess: "/visa_proces",
+  course: "/course",
 };

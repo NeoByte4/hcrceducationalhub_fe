@@ -14,6 +14,7 @@ import { studyAbroadProcess } from "@/src/data/study-abroad-process";
 import LatestArticleSection from "@/src/components/sections/article/latest-article-section";
 import SiteReviewSection from "@/src/components/sections/reviews/site-reviews-seciton";
 import NewsletterSection from "@/src/components/sections/newsletter/newsletter-section";
+import LatestCourseSection from "@/src/components/sections/course/course-section";
 
 const HERO_QUERY = `
 query {
@@ -102,9 +103,24 @@ query {
         description
       }
     }
+      }
 
-}
-  
+  course {
+  title
+  slug
+  discound
+  description
+  highlights
+  duration
+  level
+  banner_image {
+  directus_files_id {
+        id
+        filename_download
+        description
+      }
+  }
+  }
 }
 `;
 
@@ -127,11 +143,12 @@ const Homepage = async () => {
     topInstitutions = [],
     admissionOpenPrograms = [],
     blog: blogs = [],
+    course = [],
   } = data ?? {};
 
   const heroPage = hero_page[0] ?? {};
   const { title = "", video } = heroPage;
-
+  console.log(course);
   return (
     <>
       <HeroSection
@@ -168,7 +185,14 @@ const Homepage = async () => {
           data={topInstitutions}
         />
       )}
-
+      {shouldRenderSection(course) && (
+        <LatestCourseSection
+          subtitle="Boost Your Future"
+          title="Our Popular Courses"
+          description="Explore our most popular preparation and counseling courses designed to help you succeed in your study abroad journey."
+          data={course}
+        />
+      )}
       {shouldRenderSection(admissionOpenPrograms) && (
         <ProgramListSection
           subtitle="Curated & Customizable"
