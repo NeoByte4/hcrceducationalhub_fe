@@ -180,7 +180,7 @@ export default function VisaProcessStatic({
           <div className="mt-6">
             <GenericTable
               title="Intakes"
-              overview={`Check all upcoming intakes at the ${name} program`}
+              overview={`Check all upcoming intakes at the ${title} program`}
               data={intakes}
               columns={[
                 { key: "name", title: "Intake Name" },
