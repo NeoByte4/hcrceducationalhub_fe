@@ -19,11 +19,11 @@ query ($slug: String!) {
     author
     video { id }
     images {
-      directus_files_id {
-        id
-        filename_download
-        description
-      }
+   directus_files_id {
+      id
+      filename_download
+      description
+    }
     }
   }
 

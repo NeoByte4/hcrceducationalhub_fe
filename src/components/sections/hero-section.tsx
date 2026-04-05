@@ -56,6 +56,8 @@ const HeroSection: React.FC<Props> = ({
 
   const img = getAssetUrl(image);
 
+  const firstImage = slideshowImages?.[0];
+
   return (
     <ContainerLayout className={`pt-4 md:pt-0 ${className}`}>
       <section

@@ -10,9 +10,6 @@ export async function fetchMetaData(
 
   // Return default structure immediately since we know the queries will fail
   // This prevents the 400 errors and allows the page to use defaultMetaData
-  console.log(
-    `Metadata fetch attempted for: ${cleanPage} - using defaults instead`,
-  );
 
   // Return empty structure that matches what generateMetadata expects
   return {
