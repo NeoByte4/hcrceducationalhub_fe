@@ -6,7 +6,6 @@ import { routes } from "@/lib/routes";
 import { siteDetails } from "@/src/data/sit-details";
 import { ICountry, IInstitution } from "@/src/graphql/types_api";
 import { axiosDataInstance } from "@/src/axios/axios";
-import { fetchMetaData } from "@/src/lib/fetch-metadata";
 import CountryStatic from "./country-static";
 
 // ─── Types ───────────────────────────────────────────────────────────────────

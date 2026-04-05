@@ -56,7 +56,7 @@ const APPLICATION_FULL = `
         name
         slug
       }
-      institutions {
+      institution {
         name
         slug
       }

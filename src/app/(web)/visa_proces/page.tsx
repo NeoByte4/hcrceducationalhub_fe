@@ -58,7 +58,7 @@ query GETVisaProcess {
       name
       slug
     }
-    institutions {
+    institution {
       name
       slug
     }
@@ -88,7 +88,9 @@ const fetchVisaPageData = async () => {
 
 const Page = async () => {
   const data = await fetchVisaPageData();
-  if (!data) return null;
+
+  if (!data || !data.visaPage?.[0]) return null;
+
   const visaPage = data.visaPage[0];
 
   return (

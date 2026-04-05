@@ -43,17 +43,15 @@ query GetCounseling {
     }
     inclusion
     exclusion
-      steps {
+    steps {
       name
       overview
     }
-     notes
+    notes
   }
-  
- 
 
   intakes {
-  id
+    id
     name
     start_date
     seats_available
@@ -62,13 +60,14 @@ query GetCounseling {
       name
       slug
     }
-    institutions {
+    institution {
       name
       slug
     }
   }
 }
 `;
+
 const fetchCounseling = async () => {
   try {
     const response = await axiosDataInstance.post(
@@ -88,11 +87,16 @@ const fetchCounseling = async () => {
     return null;
   }
 };
-
 const Page = async () => {
   const data = await fetchCounseling();
+
+  if (!data || !data.counseling?.[0]) {
+    return <div>Counseling data not available.</div>;
+  }
+
   const counseling = data.counseling[0];
   const intakes = data.intakes || [];
+
   return (
     <>
       <CounselingStatic
