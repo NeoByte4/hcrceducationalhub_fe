@@ -19,7 +19,7 @@ const secondary = Figtree({
 });
 
 const SITE_URL = "http://localhost:3000";
-const SITE_TITLE = "Prestige Travel Corporation";
+const SITE_TITLE = "HCRC Education Hub";
 
 export const revalidate = 3600;
 
@@ -79,13 +79,14 @@ export const metadata: Metadata = {
     images: [`${SITE_URL}/twitter-card.jpg`],
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/hcrc-logo.png",
+    apple: "/hcrc-logo.png",
   },
   verification: {
     google: "your-google-verification-code",
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -94,10 +95,7 @@ export default function RootLayout({
   return (
     <html data-scroll-behavior="smooth" lang="en">
       <head>
-        <meta
-          name="apple-mobile-web-app-title"
-          content="Prestige Travel Corporation"
-        />
+        <meta name="apple-mobile-web-app-title" content="HCRC Education Hub" />
       </head>
       <body
         className={`${secondary.variable} ${poppins.variable} antialiased relative`}
